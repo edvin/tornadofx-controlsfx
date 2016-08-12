@@ -15,28 +15,30 @@ fun <T> TableView<T>.applyFilterControl(lazy: Boolean = false): TableFilter<T>? 
     return tableFilter
 }
 
-
-fun <T,C> TableColumn<T, C>.selectFilterValue(value: Any?) {
-    (tableView.properties["TableFilter"] as TableFilter<*>).selectValue(this,value)
-}
-
-fun <T,C> TableColumn<T, C>.selectAllFilterValues() {
-    (tableView.properties["TableFilter"] as TableFilter<*>).selectAllValues(this)
-}
-
-fun <T,C> TableColumn<T, C>.unselectFilterValue(value: Any?) {
-    (tableView.properties["TableFilter"] as TableFilter<*>).unselectValue(this,value)
-}
-
-fun <T,C> TableColumn<T, C>.unSelectAllFilterValues() {
-    (tableView.properties["TableFilter"] as TableFilter<*>).unSelectAllValues(this)
-}
-
-fun <T,C> TableColumn<T, C>.setFilterSearchStrategy(strategy: (String?,String?) -> Boolean) {
-            columnFilter.searchStrategy = BiPredicate<String, String> { t, u -> strategy.invoke(t,u) }
-}
+@Suppress("UNCHECKED_CAST")
+val <T> TableView<T>.tableFilter: TableFilter<T> get() =  (properties["TableFilter"] as TableFilter<T>)
 
 @Suppress("UNCHECKED_CAST")
 val <T,C> TableColumn<T,C>.columnFilter: ColumnFilter<T, C> get() =
-    (tableView.properties["TableFilter"] as TableFilter<T>).getColumnFilter(this)
-            .orElseThrow { Exception("TableFilter property not found!") } as ColumnFilter<T, C>
+(tableView.properties["TableFilter"] as TableFilter<T>).getColumnFilter(this)
+        .orElseThrow { Exception("TableFilter property not found!") } as ColumnFilter<T, C>
+
+fun <T,C> TableColumn<T, C>.selectFilterValue(value: Any?) {
+    tableView.tableFilter.selectValue(this,value)
+}
+
+fun <T,C> TableColumn<T, C>.selectAllFilterValues() {
+    tableView.tableFilter.selectAllValues(this)
+}
+
+fun <T,C> TableColumn<T, C>.unselectFilterValue(value: Any?) {
+    tableView.tableFilter.unselectValue(this,value)
+}
+
+fun <T,C> TableColumn<T, C>.unSelectAllFilterValues() {
+    tableView.tableFilter.unSelectAllValues(this)
+}
+
+fun <T,C> TableColumn<T, C>.setFilterSearchStrategy(strategy: (String?,String?) -> Boolean) {
+    columnFilter.searchStrategy = BiPredicate<String, String> { t, u -> strategy.invoke(t,u) }
+}
