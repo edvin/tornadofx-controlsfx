@@ -2,7 +2,6 @@ import impl.org.controlsfx.table.ColumnFilter
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
 import org.controlsfx.control.table.TableFilter
-import java.util.function.BiPredicate
 
 fun <T> TableView<T>.applyTableFilter(lazy: Boolean = false): TableFilter<T>? {
 
@@ -25,24 +24,4 @@ val <T,C> TableColumn<T,C>.columnFilter: ColumnFilter<T, C> get() =
 
 fun <T,C> TableColumn<T,C>.columnfilter(op: ColumnFilter<T,C>.() -> Unit) {
     columnFilter.op()
-}
-
-fun <T,C> TableColumn<T, C>.selectFilterValue(value: Any?) {
-    tableView.tableFilter.selectValue(this,value)
-}
-
-fun <T,C> TableColumn<T, C>.selectAllFilterValues() {
-    tableView.tableFilter.selectAllValues(this)
-}
-
-fun <T,C> TableColumn<T, C>.unselectFilterValue(value: Any?) {
-    tableView.tableFilter.unselectValue(this,value)
-}
-
-fun <T,C> TableColumn<T, C>.unSelectAllFilterValues() {
-    tableView.tableFilter.unSelectAllValues(this)
-}
-
-fun <T,C> TableColumn<T, C>.setFilterSearchStrategy(strategy: (String?,String?) -> Boolean) {
-    columnFilter.searchStrategy = BiPredicate<String, String> { t, u -> strategy.invoke(t,u) }
 }
