@@ -4,7 +4,7 @@ import javafx.scene.control.TableView
 import org.controlsfx.control.table.TableFilter
 import java.util.function.BiPredicate
 
-fun <T> TableView<T>.applyFilterControl(lazy: Boolean = false): TableFilter<T>? {
+fun <T> TableView<T>.applyTableFilter(lazy: Boolean = false): TableFilter<T>? {
 
     val tableFilter = TableFilter.forTableView(this)
             .lazy(lazy)
@@ -21,7 +21,11 @@ val <T> TableView<T>.tableFilter: TableFilter<T> get() =  (properties["TableFilt
 @Suppress("UNCHECKED_CAST")
 val <T,C> TableColumn<T,C>.columnFilter: ColumnFilter<T, C> get() =
 (tableView.properties["TableFilter"] as TableFilter<T>).getColumnFilter(this)
-        .orElseThrow { Exception("TableFilter property not found!") } as ColumnFilter<T, C>
+        .orElseThrow { Exception("TableFilter not initialized! call ") } as ColumnFilter<T, C>
+
+fun <T,C> TableColumn<T,C>.columnfilter(op: ColumnFilter<T,C>.() -> Unit) {
+    columnFilter.op()
+}
 
 fun <T,C> TableColumn<T, C>.selectFilterValue(value: Any?) {
     tableView.tableFilter.selectValue(this,value)
