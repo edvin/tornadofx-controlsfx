@@ -1,7 +1,11 @@
+
 import impl.org.controlsfx.table.ColumnFilter
+import javafx.event.EventTarget
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
 import org.controlsfx.control.table.TableFilter
+import org.controlsfx.glyphfont.FontAwesome
+import org.controlsfx.glyphfont.Glyph
 
 fun <T> TableView<T>.applyTableFilter(lazy: Boolean = false): TableFilter<T>? {
 
@@ -24,4 +28,18 @@ val <T,C> TableColumn<T,C>.columnFilter: ColumnFilter<T, C> get() =
 
 fun <T,C> TableColumn<T,C>.columnfilter(op: ColumnFilter<T,C>.() -> Unit) {
     columnFilter.op()
+}
+
+private val fontAwesome by lazy {
+    FontAwesome("http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf")
+}
+
+fun EventTarget.glyph(glyph: FontAwesome.Glyph) {
+
+}
+
+fun FontAwesome.Glyph.toGlyph(op: (Glyph.() -> Unit)? = null): Glyph {
+    val glyph = fontAwesome.create(this)
+    op?.let { it.invoke(glyph) }
+    return glyph
 }
