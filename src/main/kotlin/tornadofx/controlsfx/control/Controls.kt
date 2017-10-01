@@ -9,7 +9,7 @@ import org.controlsfx.glyphfont.Glyph
 
 
 //TableFilter
-fun <T> TableView<T>.applyTableFilter(lazy: Boolean = false): TableFilter<T>? {
+fun <T> TableView<T>.applyTableFilter(lazy: Boolean = true): TableFilter<T>? {
 
     val tableFilter = TableFilter.forTableView(this)
             .lazy(lazy)
