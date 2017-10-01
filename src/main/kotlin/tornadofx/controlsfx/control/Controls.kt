@@ -7,6 +7,8 @@ import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
 import org.controlsfx.glyphfont.Glyph
 
+
+//TableFilter
 fun <T> TableView<T>.applyTableFilter(lazy: Boolean = false): TableFilter<T>? {
 
     val tableFilter = TableFilter.forTableView(this)
@@ -40,6 +42,6 @@ fun EventTarget.glyph(glyph: FontAwesome.Glyph) {
 
 fun FontAwesome.Glyph.toGlyph(op: (Glyph.() -> Unit)? = null): Glyph {
     val glyph = fontAwesome.create(this)
-    op?.let { it.invoke(glyph) }
+    op?.invoke(glyph)
     return glyph
 }
