@@ -30,8 +30,11 @@ val <T> TableView<T>.tableFilter: TableFilter<T> get() =  (properties["TableFilt
 
 @Suppress("UNCHECKED_CAST")
 val <T,C> TableColumn<T,C>.columnFilter: ColumnFilter<T, C> get() =
-(tableView.properties["TableFilter"] as TableFilter<T>).getColumnFilter(this)
-        .orElseThrow { Exception("TableFilter not initialized! call ") } as ColumnFilter<T, C>
+    ((tableView.properties["TableFilter"] as TableFilter<T>).getColumnFilter(this)
+        .orElseThrow { Exception("TableFilter not initialized! call ") } as ColumnFilter<T, C>)
+        .apply {
+            initialize()
+        }
 
 fun <T,C> TableColumn<T,C>.columnfilter(op: ColumnFilter<T,C>.() -> Unit) {
     columnFilter.op()
