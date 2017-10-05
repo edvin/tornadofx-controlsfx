@@ -14,7 +14,7 @@ import tornadofx.*
 
 
 //TableFilter
-fun <T> TableView<T>.applyTableFilter(lazy: Boolean = true): TableFilter<T>? {
+fun <T> TableView<T>.applyTableFilter(lazy: Boolean = true): TableFilter<T> {
 
     val tableFilter = TableFilter.forTableView(this)
             .lazy(lazy)
@@ -26,11 +26,11 @@ fun <T> TableView<T>.applyTableFilter(lazy: Boolean = true): TableFilter<T>? {
 }
 
 @Suppress("UNCHECKED_CAST")
-val <T> TableView<T>.tableFilter: TableFilter<T> get() =  (properties["TableFilter"] as TableFilter<T>)
+val <T> TableView<T>.tableFilter: TableFilter<T> get() =  (properties["TableFilter"] as TableFilter<T>?)?:applyTableFilter()
 
 @Suppress("UNCHECKED_CAST")
 val <T,C> TableColumn<T,C>.columnFilter: ColumnFilter<T, C> get() =
-    ((tableView.properties["TableFilter"] as TableFilter<T>).getColumnFilter(this)
+    (tableView.tableFilter.getColumnFilter(this)
         .orElseThrow { Exception("TableFilter not initialized! call ") } as ColumnFilter<T, C>)
         .apply {
             initialize()

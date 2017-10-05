@@ -1,6 +1,5 @@
 package tornadofx.controlsfx.testapps
 
-import applyTableFilter
 import columnfilter
 import tableFilter
 import tornadofx.*
@@ -12,22 +11,17 @@ class TableFilterApp: App(TableFilterView::class)
 class TableFilterView : View() {
     override val root = tableview(patients) {
 
-        //until PR is merged for ControlsFX, TableFilter must be applied *after* column builders
-        //hence why we have to save a column for the moment
-
         column("FIRST NAME", Patient::firstName)
         column("LAST NAME", Patient::lastName)
-        val genderCol = column("GENDER", Patient::gender)
+        column("GENDER", Patient::gender) {
+            columnfilter {
+                unSelectAllValues()
+                selectValue(Gender.FEMALE)
+            }
+        }
         column("BIRTHDAY", Patient::birthday)
         column("AGE", Patient::age)
         column("WBCC", Patient::whiteBloodCellCount)
-
-        applyTableFilter()
-
-        genderCol.columnfilter {
-            unSelectAllValues()
-            selectValue(Gender.FEMALE)
-        }
 
         tableFilter.executeFilter()
     }
