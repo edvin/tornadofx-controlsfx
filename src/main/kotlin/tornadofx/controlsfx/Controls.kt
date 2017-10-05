@@ -4,6 +4,8 @@ import javafx.beans.property.Property
 import javafx.event.EventTarget
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
+import javafx.scene.control.ToggleButton
+import org.controlsfx.control.SegmentedButton
 import org.controlsfx.control.ToggleSwitch
 import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
@@ -53,3 +55,20 @@ fun EventTarget.toggleswitch(text: String? = null, selectedProperty: Property<Bo
     return opcr(this,toggleSwitch,op)
 }
 
+//SegmentedButton
+
+fun EventTarget.segmentedbutton(op: (SegmentedButton.() -> Unit) = {}): SegmentedButton {
+    val segmentedButton = SegmentedButton()
+
+    return opcr(this,segmentedButton,op)
+}
+
+operator fun SegmentedButton.plusAssign(toggleButton: ToggleButton) {
+    buttons.add(toggleButton)
+}
+fun SegmentedButton.button(text: String? = null, op: (ToggleButton.() -> Unit) = {}): ToggleButton {
+    val toggleButton = ToggleButton(text)
+    toggleButton.op()
+    this += toggleButton
+    return toggleButton
+}
