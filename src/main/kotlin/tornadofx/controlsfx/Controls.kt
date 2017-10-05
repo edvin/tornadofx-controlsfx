@@ -1,11 +1,14 @@
 
 import impl.org.controlsfx.table.ColumnFilter
+import javafx.beans.property.Property
 import javafx.event.EventTarget
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
+import org.controlsfx.control.ToggleSwitch
 import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
 import org.controlsfx.glyphfont.Glyph
+import tornadofx.*
 
 
 //TableFilter
@@ -36,12 +39,17 @@ private val fontAwesome by lazy {
     FontAwesome("http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf")
 }
 
-fun EventTarget.glyph(glyph: FontAwesome.Glyph) {
-
-}
-
 fun FontAwesome.Glyph.toGlyph(op: (Glyph.() -> Unit)? = null): Glyph {
     val glyph = fontAwesome.create(this)
     op?.invoke(glyph)
     return glyph
 }
+
+//ToggleSwitch
+
+fun EventTarget.toggleswitch(text: String? = null, selectedProperty: Property<Boolean>? = null, op: (ToggleSwitch.() -> Unit) = {}): ToggleSwitch {
+    val toggleSwitch = ToggleSwitch(text)
+    toggleSwitch.selectedProperty().bindBidirectional(selectedProperty)
+    return opcr(this,toggleSwitch,op)
+}
+
