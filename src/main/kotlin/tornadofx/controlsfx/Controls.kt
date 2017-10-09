@@ -5,6 +5,8 @@ import javafx.event.EventTarget
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
 import javafx.scene.control.ToggleButton
+import javafx.scene.control.TreeItem
+import org.controlsfx.control.BreadCrumbBar
 import org.controlsfx.control.SegmentedButton
 import org.controlsfx.control.ToggleSwitch
 import org.controlsfx.control.table.TableFilter
@@ -92,4 +94,19 @@ fun SegmentedButton.button(text: String? = null, op: (ToggleButton.() -> Unit) =
     toggleButton.op()
     this += toggleButton
     return toggleButton
+}
+
+//BreadCrumbBar
+
+fun <T> EventTarget.breadcrumbbar(selectedCrumb: TreeItem<T> = TreeItem(), op: (BreadCrumbBar<T>).() -> Unit = {}): BreadCrumbBar<T> {
+    val bcb = BreadCrumbBar<T>(selectedCrumb)
+    bcb.op()
+    return bcb
+}
+
+fun <T> BreadCrumbBar<T>.treeitem(value: T, op: TreeItem<T>.() -> Unit = {}): TreeItem<T> {
+    val treeItem = TreeItem<T>(value)
+    treeItem.op()
+    selectedCrumb = treeItem
+    return treeItem
 }
