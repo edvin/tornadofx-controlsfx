@@ -14,7 +14,7 @@ import tornadofx.*
 
 
 //TableFilter
-fun <T> TableView<T>.applyTableFilter(lazy: Boolean = true): TableFilter<T> {
+private fun <T> TableView<T>.applyTableFilter(lazy: Boolean = true): TableFilter<T> {
 
     val tableFilter = TableFilter.forTableView(this)
             .lazy(lazy)
@@ -24,6 +24,11 @@ fun <T> TableView<T>.applyTableFilter(lazy: Boolean = true): TableFilter<T> {
 
     return tableFilter
 }
+fun <T> TableView<T>.tablefilter(op: (TableFilter<T>).() -> Unit = {}): TableFilter<T> {
+    val tf = tableFilter
+    tf.op()
+    return tf
+}
 
 @Suppress("UNCHECKED_CAST")
 val <T> TableView<T>.tableFilter: TableFilter<T> get() =  (properties["TableFilter"] as TableFilter<T>?)?:applyTableFilter()
@@ -31,13 +36,26 @@ val <T> TableView<T>.tableFilter: TableFilter<T> get() =  (properties["TableFilt
 @Suppress("UNCHECKED_CAST")
 val <T,C> TableColumn<T,C>.columnFilter: ColumnFilter<T, C> get() =
     (tableView.tableFilter.getColumnFilter(this)
-        .orElseThrow { Exception("TableFilter not initialized! call ") } as ColumnFilter<T, C>)
+        .orElseThrow { Exception("TableFilter not initialized!") } as ColumnFilter<T, C>)
         .apply {
             initialize()
         }
 
 fun <T,C> TableColumn<T,C>.columnfilter(op: ColumnFilter<T,C>.() -> Unit) {
     columnFilter.op()
+}
+
+fun <T> ColumnFilter<T,*>.selectValues(vararg values: Any?) {
+    values.forEach { selectValue(it) }
+}
+
+fun <T> ColumnFilter<T,*>.exceptValue(value: Any?) {
+    unSelectAllValues()
+    selectValue(value)
+}
+fun <T> ColumnFilter<T,*>.exceptValues(vararg values: Any?) {
+    unSelectAllValues()
+    values.forEach { selectValue(it) }
 }
 
 private val fontAwesome by lazy {

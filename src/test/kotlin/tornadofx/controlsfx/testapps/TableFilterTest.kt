@@ -1,6 +1,7 @@
 package tornadofx.controlsfx.testapps
 
 import columnfilter
+import exceptValue
 import tableFilter
 import tornadofx.*
 import java.time.LocalDate
@@ -15,8 +16,7 @@ class TableFilterView : View() {
         column("LAST NAME", Patient::lastName)
         column("GENDER", Patient::gender) {
             columnfilter {
-                unSelectAllValues()
-                selectValue(Gender.FEMALE)
+                exceptValue(Gender.FEMALE)
             }
         }
         column("BIRTHDAY", Patient::birthday)
