@@ -34,7 +34,7 @@ https://controlsfx.bitbucket.io/
 * [ ] MasterDetailPane
 * [ ] MaskerPane
 * [ ] LoginDialog
-* [ ] HyperlinkLabel
+* [X] HyperlinkLabel
 * [ ] GridView
 * [ ] FontAwesome
 * [ ] Decorator
