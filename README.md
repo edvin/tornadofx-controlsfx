@@ -26,7 +26,7 @@ https://controlsfx.bitbucket.io/
 * [X] ToggleSwitch
 * [ ] WorldMapView
 * [ ] SegmentedBar
-* [ ] Rating
+* [X] Rating
 * [ ] PropertySheet
 * [ ] Plus/Minus Slider
 * [X] PopOver

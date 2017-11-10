@@ -164,3 +164,33 @@ fun Node.showPopover() {
 
 //endregion
 
+//region Rating
+fun EventTarget.rating(rating: Int, max: Int, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit)? = null): Rating {
+    val r = Rating(max, rating).apply {
+        isPartialRating = allowPartialRating
+        isPartialRating = updateRatingOnHover
+    }
+    return opcr(this, r, op)
+
+}
+
+fun EventTarget.rating(rating: Property<Number>, max: Property<Number>, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit)? = null): Rating {
+    val r = Rating().apply {
+        ratingProperty().bindBidirectional(rating)
+        maxProperty().bindBidirectional(max)
+        isPartialRating = allowPartialRating
+        isPartialRating = updateRatingOnHover
+    }
+    return opcr(this, r, op)
+}
+
+fun EventTarget.rating(rating: Property<Number>, max: Int, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit)? = null): Rating {
+    val r = Rating(max).apply {
+        ratingProperty().bindBidirectional(rating)
+        isPartialRating = allowPartialRating
+        isPartialRating = updateRatingOnHover
+    }
+    return opcr(this, r, op)
+}
+//endregion
+
