@@ -28,8 +28,8 @@ https://controlsfx.bitbucket.io/
 * [ ] SegmentedBar
 * [ ] Rating
 * [ ] PropertySheet
-* [ ] PopOver
 * [ ] Plus/Minus Slider
+* [X] PopOver
 * [ ] Notifications
 * [ ] MasterDetailPane
 * [ ] MaskerPane

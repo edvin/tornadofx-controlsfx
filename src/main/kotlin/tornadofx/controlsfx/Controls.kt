@@ -2,11 +2,10 @@ import impl.org.controlsfx.table.ColumnFilter
 import javafx.beans.property.Property
 import javafx.beans.value.ObservableValue
 import javafx.event.EventTarget
+import javafx.scene.Node
 import javafx.scene.control.*
-import org.controlsfx.control.BreadCrumbBar
-import org.controlsfx.control.HyperlinkLabel
-import org.controlsfx.control.SegmentedButton
-import org.controlsfx.control.ToggleSwitch
+import javafx.stage.PopupWindow
+import org.controlsfx.control.*
 import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
 import org.controlsfx.glyphfont.Glyph
@@ -129,3 +128,39 @@ fun EventTarget.hyperlinklabel(text: ObservableValue<String>, op: (HyperlinkLabe
 fun HyperlinkLabel.action(op: Hyperlink.() -> Unit) = setOnAction { op(it.source as Hyperlink) }
 
 //endregion
+//region PopOver
+fun popoverBuilder(anchorLocation: PopupWindow.AnchorLocation = PopupWindow.AnchorLocation.WINDOW_TOP_LEFT,
+                   arrowLocation: PopOver.ArrowLocation = PopOver.ArrowLocation.LEFT_TOP,
+                   arrowIndent: Double = 12.0, contentBuilder: (PopOver.() -> Node)? = null)
+        : PopOver {
+    val popOver = PopOver().apply {
+        this.contentNode = contentBuilder?.invoke(this)
+        this.anchorLocation = anchorLocation
+        this.arrowLocation = arrowLocation
+        this.arrowIndent = arrowIndent
+    }
+
+    return popOver
+}
+
+fun Node.popover(anchorLocation: PopupWindow.AnchorLocation = PopupWindow.AnchorLocation.WINDOW_TOP_LEFT,
+                 arrowLocation: PopOver.ArrowLocation = PopOver.ArrowLocation.LEFT_TOP,
+                 arrowIndent: Double = 12.0, contentBuilder: (PopOver.() -> Node)? = null)
+        : PopOver {
+    val popOver = popoverBuilder(anchorLocation, arrowLocation, arrowIndent, contentBuilder)
+    this.popover = popOver
+    return popOver
+}
+
+var Node.popover: PopOver?
+    get() = properties["popOver"] as? PopOver
+    set(value) {
+        properties["popOver"] = value
+    }
+
+fun Node.showPopover() {
+    popover?.show(this)
+}
+
+//endregion
+
