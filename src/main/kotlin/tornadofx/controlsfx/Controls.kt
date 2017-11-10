@@ -1,7 +1,10 @@
 import impl.org.controlsfx.table.ColumnFilter
 import javafx.beans.property.Property
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.property.SimpleDoubleProperty
 import javafx.beans.value.ObservableValue
 import javafx.event.EventTarget
+import javafx.geometry.Orientation
 import javafx.scene.Node
 import javafx.scene.control.*
 import javafx.stage.PopupWindow
@@ -128,6 +131,7 @@ fun EventTarget.hyperlinklabel(text: ObservableValue<String>, op: (HyperlinkLabe
 fun HyperlinkLabel.action(op: Hyperlink.() -> Unit) = setOnAction { op(it.source as Hyperlink) }
 
 //endregion
+
 //region PopOver
 fun popoverBuilder(anchorLocation: PopupWindow.AnchorLocation = PopupWindow.AnchorLocation.WINDOW_TOP_LEFT,
                    arrowLocation: PopOver.ArrowLocation = PopOver.ArrowLocation.LEFT_TOP,
@@ -218,6 +222,23 @@ fun EventTarget.statusbar(text: ObservableValue<String>? = null, op: (StatusBar.
 }
 //endregion
 
+
+//region Masker Pane
+fun EventTarget.maskerpane(progress: Double = Double.NEGATIVE_INFINITY, visible: Boolean = false, progressVisible: Boolean = true, op: (MaskerPane.() -> Unit)): MaskerPane {
+    val maskerPane = MaskerPane().apply {
+        isVisible = visible
+        setProgressVisible(progressVisible)
+        setProgress(progress)
+    }
+    return opcr(this, maskerPane, op)
+}
+
+fun EventTarget.maskerpane(progress: Property<Number> = SimpleDoubleProperty(Double.NEGATIVE_INFINITY), visible: ObservableValue<Boolean> = SimpleBooleanProperty(false), op: (MaskerPane.() -> Unit)): MaskerPane {
+    val maskerPane = MaskerPane().apply {
+        visibleProperty().bind(visible)
+        progressProperty().bindBidirectional(progress)
+    }
+    return opcr(this, maskerPane, op)
 }
 //endregion
 
