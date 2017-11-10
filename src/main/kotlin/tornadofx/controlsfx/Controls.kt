@@ -194,3 +194,30 @@ fun EventTarget.rating(rating: Property<Number>, max: Int, allowPartialRating: B
 }
 //endregion
 
+//region StatusBar
+fun EventTarget.statusbar(op: (StatusBar.() -> Unit)? = null):StatusBar {
+    val statusBar = StatusBar().apply {
+        leftItems.clear()
+        rightItems.clear()
+    }
+    return opcr(this, statusBar, op)
+}
+
+fun EventTarget.statusbar(text: String? = null, op: (StatusBar.() -> Unit)? = null):StatusBar {
+    val statusBar = statusbar(op).apply {
+        this.text = text
+    }
+    return opcr(this, statusBar, op)
+}
+
+fun EventTarget.statusbar(text: ObservableValue<String>? = null, op: (StatusBar.() -> Unit)? = null):StatusBar {
+    val statusBar = statusbar(op).apply {
+        if (text != null) this.textProperty().bind(text)
+    }
+    return opcr(this, statusBar, op)
+}
+//endregion
+
+}
+//endregion
+

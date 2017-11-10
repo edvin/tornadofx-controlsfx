@@ -22,7 +22,7 @@ https://controlsfx.bitbucket.io/
 * [X] TableFilter
 * [ ] RangeSlider
 * [ ] SpreadsheetView
-* [ ] StatusBar
+* [X] StatusBar
 * [X] ToggleSwitch
 * [ ] WorldMapView
 * [ ] SegmentedBar
