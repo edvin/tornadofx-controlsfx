@@ -1,8 +1,8 @@
 package tornadofx.controlsfx.testapps
 
 import javafx.beans.property.SimpleDoubleProperty
-import plusminuslider
 import tornadofx.*
+import tornadofx.controlsfx.plusminuslider
 
 class PlusMinusSliderApp : App(PlusMinusSliderView::class)
 

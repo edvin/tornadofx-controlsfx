@@ -1,9 +1,9 @@
 package tornadofx.controlsfx.testapps
 
-import columnfilter
-import exceptValue
-import tableFilter
 import tornadofx.*
+import tornadofx.controlsfx.columnfilter
+import tornadofx.controlsfx.exceptValue
+import tornadofx.controlsfx.tableFilter
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 

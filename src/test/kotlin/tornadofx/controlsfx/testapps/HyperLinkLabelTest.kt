@@ -1,8 +1,8 @@
 package tornadofx.controlsfx.testapps
 
-import action
-import hyperlinklabel
 import tornadofx.*
+import tornadofx.controlsfx.action
+import tornadofx.controlsfx.hyperlinklabel
 
 class HyperLinkLabelApp : App(HyperLinkLabelView::class)
 

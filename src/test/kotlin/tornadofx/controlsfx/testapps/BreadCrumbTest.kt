@@ -1,9 +1,10 @@
 package tornadofx.controlsfx.testapps
 
-import breadcrumbbar
 import javafx.scene.control.TreeItem
 import tornadofx.*
-import treeitem
+import tornadofx.controlsfx.breadcrumbbar
+import tornadofx.controlsfx.treeitem
+
 
 class BreadCrumbApp: App(BreadCrumbPane::class)
 

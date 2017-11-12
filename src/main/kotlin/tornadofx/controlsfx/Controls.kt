@@ -1,3 +1,5 @@
+package tornadofx.controlsfx
+
 import impl.org.controlsfx.table.ColumnFilter
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.Property
@@ -200,7 +202,7 @@ fun EventTarget.rating(rating: Property<Number>, max: Int, allowPartialRating: B
 //endregion
 
 //region StatusBar
-fun EventTarget.statusbar(op: (StatusBar.() -> Unit)? = null):StatusBar {
+fun EventTarget.statusbar(op: (StatusBar.() -> Unit)? = null): StatusBar {
     val statusBar = StatusBar().apply {
         leftItems.clear()
         rightItems.clear()
@@ -208,14 +210,14 @@ fun EventTarget.statusbar(op: (StatusBar.() -> Unit)? = null):StatusBar {
     return opcr(this, statusBar, op)
 }
 
-fun EventTarget.statusbar(text: String? = null, op: (StatusBar.() -> Unit)? = null):StatusBar {
+fun EventTarget.statusbar(text: String? = null, op: (StatusBar.() -> Unit)? = null): StatusBar {
     val statusBar = statusbar(op).apply {
         this.text = text
     }
     return opcr(this, statusBar, op)
 }
 
-fun EventTarget.statusbar(text: ObservableValue<String>? = null, op: (StatusBar.() -> Unit)? = null):StatusBar {
+fun EventTarget.statusbar(text: ObservableValue<String>? = null, op: (StatusBar.() -> Unit)? = null): StatusBar {
     val statusBar = statusbar(op).apply {
         if (text != null) this.textProperty().bind(text)
     }

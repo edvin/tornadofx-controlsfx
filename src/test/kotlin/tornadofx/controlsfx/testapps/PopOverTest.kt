@@ -1,8 +1,8 @@
 package tornadofx.controlsfx.testapps
 
-import popover
-import showPopover
 import tornadofx.*
+import tornadofx.controlsfx.popover
+import tornadofx.controlsfx.showPopover
 
 class PopOverTestApp : App(PopOverView::class)
 

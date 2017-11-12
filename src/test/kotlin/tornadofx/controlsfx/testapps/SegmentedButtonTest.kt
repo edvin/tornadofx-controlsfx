@@ -1,8 +1,7 @@
 package tornadofx.controlsfx.testapps
 
-import button
-import segmentedbutton
 import tornadofx.*
+import tornadofx.controlsfx.segmentedbutton
 
 class SegmentedButtonApp: App(SegmentedbuttonView::class)
 

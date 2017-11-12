@@ -2,12 +2,12 @@ package tornadofx.controlsfx.testapps
 
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
-import statusbar
 import tornadofx.*
 import javafx.scene.layout.CornerRadii
 import javafx.scene.layout.BackgroundFill
 import javafx.scene.layout.Background
 import javafx.scene.paint.Color
+import tornadofx.controlsfx.statusbar
 
 
 class StatusBarTestApp : App(StatusBarView::class)

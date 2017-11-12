@@ -1,10 +1,9 @@
 package tornadofx.controlsfx.testapps
 
 import javafx.beans.property.SimpleDoubleProperty
-import javafx.scene.control.TextField
 import org.controlsfx.control.RangeSlider
-import rangeslider
 import tornadofx.*
+import tornadofx.controlsfx.rangeslider
 
 class RangeSliderApp : App(RangeSliderView::class)
 
