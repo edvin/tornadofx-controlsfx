@@ -18,23 +18,24 @@ https://controlsfx.bitbucket.io/
 * [ ] CustomPasswordField
 * [ ] CustomTextField
 * [ ] Picker
-* [ ] ProgressDialog
+* [X] ProgressDialog
+* [X] ExceptionDialog
 * [X] TableFilter
-* [ ] RangeSlider
+* [X] RangeSlider
 * [ ] SpreadsheetView
-* [ ] StatusBar
+* [X] StatusBar
 * [X] ToggleSwitch
 * [ ] WorldMapView
 * [ ] SegmentedBar
-* [ ] Rating
+* [X] Rating
 * [ ] PropertySheet
-* [ ] PopOver
-* [ ] Plus/Minus Slider
+* [X] PopOver
+* [X] Plus/Minus Slider
 * [ ] Notifications
-* [ ] MasterDetailPane
-* [ ] MaskerPane
+* [X] MasterDetailPane
+* [X] MaskerPane
 * [ ] LoginDialog
-* [ ] HyperlinkLabel
+* [X] HyperlinkLabel
 * [ ] GridView
 * [ ] FontAwesome
 * [ ] Decorator
