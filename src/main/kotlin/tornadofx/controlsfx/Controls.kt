@@ -1,4 +1,5 @@
 import impl.org.controlsfx.table.ColumnFilter
+import javafx.beans.property.DoubleProperty
 import javafx.beans.property.Property
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleDoubleProperty
@@ -222,6 +223,19 @@ fun EventTarget.statusbar(text: ObservableValue<String>? = null, op: (StatusBar.
 }
 //endregion
 
+//region PlusMinusSlider
+
+fun EventTarget.plusminuslider(value: Property<Number>, orientation: Orientation = Orientation.HORIZONTAL, op: (PlusMinusSlider.() -> Unit)? = null): PlusMinusSlider {
+    val plusMinusSlider = PlusMinusSlider().apply {
+        this.orientation = orientation
+    }
+    plusMinusSlider.setOnValueChanged {
+        value.value = it.value
+    }
+    return opcr(this, plusMinusSlider, op)
+}
+
+//endregion
 
 //region Masker Pane
 fun EventTarget.maskerpane(progress: Double = Double.NEGATIVE_INFINITY, visible: Boolean = false, progressVisible: Boolean = true, op: (MaskerPane.() -> Unit)): MaskerPane {
