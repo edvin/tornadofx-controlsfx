@@ -242,3 +242,24 @@ fun EventTarget.maskerpane(progress: Property<Number> = SimpleDoubleProperty(Dou
 }
 //endregion
 
+//region RangeSlider
+fun EventTarget.rangeslider(min: Double = 0.0, max: Double = 1.0, lowValue: Double = 0.25, highValue: Double = 0.75,
+                            op: (RangeSlider.() -> Unit)? = null): RangeSlider {
+    val rangeSlider = RangeSlider(min, max, lowValue, highValue)
+    return opcr(this, rangeSlider, op)
+}
+
+fun EventTarget.rangeslider(
+        lowValue: DoubleProperty,
+        highValue: DoubleProperty,
+        min: Double = 0.0, max: Double = 1.0,
+        op: (RangeSlider.() -> Unit)? = null): RangeSlider {
+    val rangeSlider = RangeSlider().apply {
+        this.min = min
+        this.max = max
+        lowValueProperty().bindBidirectional(lowValue)
+        highValueProperty().bindBidirectional(highValue)
+    }
+    return opcr(this, rangeSlider, op)
+}
+//endregion

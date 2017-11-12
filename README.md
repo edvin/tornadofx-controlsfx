@@ -20,7 +20,7 @@ https://controlsfx.bitbucket.io/
 * [ ] Picker
 * [ ] ProgressDialog
 * [X] TableFilter
-* [ ] RangeSlider
+* [X] RangeSlider
 * [ ] SpreadsheetView
 * [X] StatusBar
 * [X] ToggleSwitch
