@@ -18,7 +18,8 @@ https://controlsfx.bitbucket.io/
 * [ ] CustomPasswordField
 * [ ] CustomTextField
 * [ ] Picker
-* [ ] ProgressDialog
+* [X] ProgressDialog
+* [X] ExceptionDialog
 * [X] TableFilter
 * [X] RangeSlider
 * [ ] SpreadsheetView
