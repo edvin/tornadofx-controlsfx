@@ -32,6 +32,7 @@ https://controlsfx.bitbucket.io/
 * [X] PopOver
 * [X] Plus/Minus Slider
 * [ ] Notifications
+* [X] NotificationsPane
 * [X] MasterDetailPane
 * [X] MaskerPane
 * [ ] LoginDialog

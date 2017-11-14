@@ -6,8 +6,8 @@ import javafx.beans.property.Property
 import javafx.event.EventTarget
 import javafx.geometry.Side
 import javafx.scene.Node
-import javafx.scene.layout.BorderPane
 import org.controlsfx.control.MasterDetailPane
+import org.controlsfx.control.NotificationPane
 import tornadofx.*
 import kotlin.reflect.KFunction1
 
@@ -26,6 +26,25 @@ fun MasterDetailPane.master(op: MasterDetailPane.() -> Unit) = region(MasterDeta
 fun MasterDetailPane.detail(op: MasterDetailPane.() -> Unit) = region(MasterDetailPane::detailNodeProperty, op)
 
 internal fun MasterDetailPane.region(region: KFunction1<MasterDetailPane, ObjectProperty<Node>>?, op: MasterDetailPane.() -> Unit) {
+    builderTarget = region
+    op()
+    builderTarget = null
+}
+
+//endregion
+
+//region NotificationsPane
+fun EventTarget.notificationPane(showFromTop: Boolean = true, isShowing: Property<Boolean>? = null, op: (NotificationPane.() -> Unit)? = null): NotificationPane {
+    val notificationPane = NotificationPane().apply {
+        isShowFromTop = showFromTop
+        if (isShowing != null) isShowing.bind(this.showingProperty())
+    }
+    return opcr(this, notificationPane, op)
+}
+
+fun NotificationPane.content(op: NotificationPane.() -> Unit) = region(NotificationPane::contentProperty, op)
+
+internal fun NotificationPane.region(region: KFunction1<NotificationPane, ObjectProperty<Node>>?, op: NotificationPane.() -> Unit) {
     builderTarget = region
     op()
     builderTarget = null
