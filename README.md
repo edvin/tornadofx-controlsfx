@@ -15,8 +15,8 @@ https://controlsfx.bitbucket.io/
 * [ ] CheckComboBox
 * [ ] CheckTreeView
 * [ ] Glyphs
-* [ ] CustomPasswordField
-* [ ] CustomTextField
+* [X] CustomPasswordField
+* [X] CustomTextField
 * [ ] Picker
 * [X] ProgressDialog
 * [X] ExceptionDialog
