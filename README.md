@@ -28,7 +28,7 @@ https://controlsfx.bitbucket.io/
 * [ ] WorldMapView
 * [ ] SegmentedBar
 * [X] Rating
-* [ ] PropertySheet
+* [X] PropertySheet
 * [X] PopOver
 * [X] Plus/Minus Slider
 * [ ] Notifications
