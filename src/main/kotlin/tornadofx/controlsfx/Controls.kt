@@ -16,6 +16,8 @@ import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
 import org.controlsfx.glyphfont.Glyph
 import tornadofx.*
+import java.util.*
+import java.util.function.BiFunction
 
 
 //TableFilter
@@ -277,5 +279,46 @@ fun EventTarget.rangeslider(
         highValueProperty().bindBidirectional(highValue)
     }
     return opcr(this, rangeSlider, op)
+}
+//region Prefix Selection
+fun <T> EventTarget.prefixselectioncombobox(op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+    return opcr(this, PrefixSelectionComboBox(), op)
+}
+
+fun <T> EventTarget.prefixselectioncombobox(items: List<T>, lookup: ComboBox<T>.(String) -> Optional<T>, op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+    val comboBox = PrefixSelectionComboBox<T>().apply {
+        this.items = items.observable()
+        val internal: (ComboBox<*>, String) -> Optional<*> = { _, str -> lookup(this, str) }
+        this.lookup = BiFunction<ComboBox<*>, String, Optional<*>>(internal)
+    }
+
+    return opcr(this, comboBox, op)
+}
+
+fun <T> EventTarget.prefixselectioncombobox(items: ListProperty<T>, op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+    val comboBox = PrefixSelectionComboBox<T>().apply {
+        this.itemsProperty().bindBidirectional(items)
+    }
+
+    return opcr(this, comboBox, op)
+}
+
+fun <T> PrefixSelectionComboBox<T>.lookup(op: PrefixSelectionComboBox<T>.(String) -> T?) {
+    val internal: (ComboBox<*>, String) -> Optional<T> = { _, str ->
+        val result = op(this, str)
+        when (result) {
+            null -> Optional.empty()
+            else -> Optional.of(result)
+        }
+    }
+    this.lookup = BiFunction<ComboBox<*>, String, Optional<*>>(internal)
+}
+
+
+fun <T> EventTarget.prefixselectionchoicebox(items: ListProperty<T>? = null, op: (PrefixSelectionChoiceBox<T>.() -> Unit)? = null): PrefixSelectionChoiceBox<T> {
+    val prefixSelectionChoiceBox = PrefixSelectionChoiceBox<T>().apply {
+        if (items != null) itemsProperty().bindBidirectional(items)
+    }
+    return opcr(this, prefixSelectionChoiceBox, op)
 }
 //endregion

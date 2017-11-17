@@ -40,3 +40,4 @@ https://controlsfx.bitbucket.io/
 * [ ] GridView
 * [ ] FontAwesome
 * [ ] Decorator
+* [X] Prefix Selection Combobox/Choicebox
