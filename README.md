@@ -31,7 +31,7 @@ https://controlsfx.bitbucket.io/
 * [X] PropertySheet
 * [X] PopOver
 * [X] Plus/Minus Slider
-* [ ] Notifications
+* [X] Notifications
 * [X] NotificationsPane
 * [X] MasterDetailPane
 * [X] MaskerPane
