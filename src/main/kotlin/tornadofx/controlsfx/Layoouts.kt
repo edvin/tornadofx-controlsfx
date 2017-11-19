@@ -6,6 +6,7 @@ import javafx.beans.property.Property
 import javafx.event.EventTarget
 import javafx.geometry.Side
 import javafx.scene.Node
+import org.controlsfx.control.HiddenSidesPane
 import org.controlsfx.control.MasterDetailPane
 import org.controlsfx.control.NotificationPane
 import tornadofx.*
@@ -48,5 +49,45 @@ internal fun NotificationPane.region(region: KFunction1<NotificationPane, Object
     builderTarget = region
     op()
     builderTarget = null
+}
+//endregion
+
+//region HiddenSidesPane
+fun EventTarget.hiddensidepane(op: (HiddenSidesPane.() -> Unit)? = null) = opcr(this, HiddenSidesPane(), op)
+
+var HiddenSidesPane.pinSide: Side
+    get() = pinnedSide
+    set(value) {
+        if (pinnedSide == value)
+            pinnedSide = null
+        else
+            pinnedSide = value
+    }
+
+fun HiddenSidesPane.top(op: HiddenSidesPane.() -> Unit) = region(HiddenSidesPane::topProperty, op)
+fun HiddenSidesPane.left(op: HiddenSidesPane.() -> Unit) = region(HiddenSidesPane::leftProperty, op)
+fun HiddenSidesPane.right(op: HiddenSidesPane.() -> Unit) = region(HiddenSidesPane::rightProperty, op)
+fun HiddenSidesPane.bottom(op: HiddenSidesPane.() -> Unit) = region(HiddenSidesPane::bottomProperty, op)
+
+internal fun HiddenSidesPane.region(region: KFunction1<HiddenSidesPane, ObjectProperty<Node>>?, op: HiddenSidesPane.() -> Unit) {
+    builderTarget = region
+    op()
+    builderTarget = null
+}
+//endregion
+
+//region SnapshotView
+fun EventTarget.snapshotview(op: (SnapshotView.() -> Unit)? = null): SnapshotView {
+    val snapshotView = SnapshotView()
+
+    return opcr(this, snapshotView, op)
+}
+
+fun EventTarget.snapshotview(selectionProperty: Property<Rectangle2D>, op: (SnapshotView.() -> Unit)? = null): SnapshotView {
+    val snapshotView = SnapshotView().apply {
+        selectionProperty().bindBidirectional(selectionProperty)
+    }
+
+    return opcr(this, snapshotView, op)
 }
 //endregion
