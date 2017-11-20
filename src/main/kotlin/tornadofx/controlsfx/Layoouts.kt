@@ -4,22 +4,30 @@ import javafx.beans.property.BooleanProperty
 import javafx.beans.property.ObjectProperty
 import javafx.beans.property.Property
 import javafx.event.EventTarget
+import javafx.geometry.Rectangle2D
 import javafx.geometry.Side
 import javafx.scene.Node
 import org.controlsfx.control.HiddenSidesPane
 import org.controlsfx.control.MasterDetailPane
 import org.controlsfx.control.NotificationPane
+import org.controlsfx.control.SnapshotView
 import tornadofx.*
 import kotlin.reflect.KFunction1
 
 //region Master Detail Pane
-fun EventTarget.masterdetailpane(detailSide: Side, showDetail: Boolean, op: (MasterDetailPane.() -> Unit)? = null): MasterDetailPane =
-        opcr(this, MasterDetailPane(detailSide, showDetail), op)
+fun EventTarget.masterdetailpane(detailSide: Side, showDetail: Boolean, dividerPosition: Double = 0.5, op: (MasterDetailPane.() -> Unit)? = null): MasterDetailPane =
+        opcr(this, MasterDetailPane(detailSide, showDetail).apply {
+            this.dividerPosition = dividerPosition
+        }, op)
 
-fun EventTarget.masterdetailpane(detailSide: Property<Side>, showDetail: BooleanProperty, op: (MasterDetailPane.() -> Unit)? = null): MasterDetailPane =
+fun EventTarget.masterdetailpane(detailSide: Property<Side>? = null,
+                                 showDetail: BooleanProperty? = null,
+                                 dividerPosition: Property<Number>? = null,
+                                 op: (MasterDetailPane.() -> Unit)? = null): MasterDetailPane =
         opcr(this, MasterDetailPane().apply {
-            detailSideProperty().bind(detailSide)
-            showDetailNodeProperty().bind(showDetail)
+            if (detailSide != null) detailSideProperty().bindBidirectional(detailSide)
+            if (showDetail != null) showDetailNodeProperty().bindBidirectional(showDetail)
+            if (dividerPosition != null) dividerPositionProperty().bindBidirectional(dividerPosition)
         }, op)
 
 fun MasterDetailPane.master(op: MasterDetailPane.() -> Unit) = region(MasterDetailPane::masterNodeProperty, op)
