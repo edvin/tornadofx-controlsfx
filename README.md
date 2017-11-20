@@ -25,7 +25,7 @@ https://controlsfx.bitbucket.io/
 * [ ] SpreadsheetView
 * [X] StatusBar
 * [X] ToggleSwitch
-* [ ] WorldMapView
+* [X] WorldMapView
 * [ ] SegmentedBar
 * [X] Rating
 * [X] PropertySheet

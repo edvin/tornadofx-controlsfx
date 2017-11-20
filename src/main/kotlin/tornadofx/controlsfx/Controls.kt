@@ -280,6 +280,44 @@ fun EventTarget.rangeslider(
     }
     return opcr(this, rangeSlider, op)
 }
+//region WorldMapView
+fun EventTarget.worldmapView(locations: List<WorldMapView.Location>? = null, selectedLocations: List<WorldMapView.Location>? = null,
+                             selectedCountries: List<WorldMapView.Country>? = null,
+                             op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+    val worldMapView = WorldMapView().apply {
+        if (locations != null) this.locations.setAll(locations)
+        if (selectedLocations != null) this.selectedLocations.setAll(selectedLocations)
+        if (selectedCountries != null) this.selectedCountries.setAll(selectedCountries)
+
+    }
+    return opcr(this, worldMapView, op)
+}
+
+fun EventTarget.worldmapView(locations: ListProperty<WorldMapView.Location>? = null, selectedLocations: ListProperty<WorldMapView.Location>? = null,
+                             selectedCountries: ListProperty<WorldMapView.Country>? = null,
+                             op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+    val worldMapView = WorldMapView().apply {
+        if (locations != null) locationsProperty().bind(locations)
+        if (selectedLocations != null) selectedLocationsProperty().bindBidirectional(selectedLocations)
+        if (selectedCountries != null) selectedCountriesProperty().bindBidirectional(selectedCountries)
+
+    }
+    return opcr(this, worldMapView, op)
+}
+
+fun EventTarget.worldmapView(op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+    val worldMapView = WorldMapView()
+    return opcr(this, worldMapView, op)
+}
+
+fun WorldMapView.countryViewFactory(op: WorldMapView.(WorldMapView.Country) -> WorldMapView.CountryView) {
+    this.countryViewFactory = Callback { op(it) }
+}
+
+fun WorldMapView.locationViewFactory(op: WorldMapView.(WorldMapView.Location) -> Node) {
+    this.locationViewFactory = Callback { op(it) }
+}
+//endregion
 //region Prefix Selection
 fun <T> EventTarget.prefixselectioncombobox(op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
     return opcr(this, PrefixSelectionComboBox(), op)
