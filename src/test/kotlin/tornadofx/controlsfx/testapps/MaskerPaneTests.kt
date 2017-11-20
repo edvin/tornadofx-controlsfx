@@ -1,8 +1,8 @@
 package tornadofx.controlsfx.testapps
 
 import javafx.beans.property.SimpleBooleanProperty
-import maskerpane
 import tornadofx.*
+import tornadofx.controlsfx.maskerpane
 
 class MaskerPaneApp : App(MaskerPaneView::class)
 

@@ -1,8 +1,8 @@
 package tornadofx.controlsfx.testapps
 
 import javafx.beans.property.SimpleDoubleProperty
-import rating
 import tornadofx.*
+import tornadofx.controlsfx.rating
 
 class RatingApp : App(RatingView::class)
 

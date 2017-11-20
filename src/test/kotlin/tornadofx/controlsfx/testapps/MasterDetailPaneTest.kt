@@ -1,20 +1,51 @@
 package tornadofx.controlsfx.testapps
 
+import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Side
 import tornadofx.*
 import tornadofx.controlsfx.detail
 import tornadofx.controlsfx.master
 import tornadofx.controlsfx.masterdetailpane
 
-class MasterDetailPaneApp: App(MasterDetailPaneView::class)
+class LocalPerson(name: String, familyName: String) {
+    val nameProperty = SimpleStringProperty(name)
+    var name by nameProperty
+    val familyNameProperty = SimpleStringProperty(familyName)
+    var familyName by familyNameProperty
+}
 
-class MasterDetailPaneView:View("Master Detail Pane"){
-    override val root = masterdetailpane(Side.TOP,true){
+class PersonModel : ItemViewModel<LocalPerson>() {
+    val name = bind(LocalPerson::nameProperty)
+    val familyName = bind(LocalPerson::familyNameProperty)
+}
+
+
+class MainApp : App(MainView::class)
+
+class MainView : View("View") {
+    val persons = listOf(LocalPerson("aaa", "aaa"), LocalPerson("bbb", "bbbb"))
+    val personViewModel by inject<PersonModel>()
+    override val root = masterdetailpane(detailSide = Side.RIGHT, showDetail = true) {
+        dividerPosition = 0.5
         master {
-            label("Master") {  }
+            tableview(persons.observable()) {
+                column("Name", LocalPerson::name)
+                column("Family Name", LocalPerson::familyName)
+                bindSelected(personViewModel)
+            }
         }
         detail {
-            label("Detail")
+            form{
+                fieldset {
+                    field("Name") {
+                        textfield(personViewModel.name)
+                    }
+                    field("Family Name"){
+                        textfield(personViewModel.familyName)
+                    }
+                }
+            }
         }
     }
+
 }

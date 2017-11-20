@@ -1,19 +1,21 @@
+package tornadofx.controlsfx
+
 import impl.org.controlsfx.table.ColumnFilter
-import javafx.beans.property.DoubleProperty
-import javafx.beans.property.Property
-import javafx.beans.property.SimpleBooleanProperty
-import javafx.beans.property.SimpleDoubleProperty
+import javafx.beans.property.*
 import javafx.beans.value.ObservableValue
 import javafx.event.EventTarget
 import javafx.geometry.Orientation
 import javafx.scene.Node
 import javafx.scene.control.*
 import javafx.stage.PopupWindow
+import javafx.util.Callback
 import org.controlsfx.control.*
 import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
 import org.controlsfx.glyphfont.Glyph
 import tornadofx.*
+import java.util.*
+import java.util.function.BiFunction
 
 
 //TableFilter
@@ -200,7 +202,7 @@ fun EventTarget.rating(rating: Property<Number>, max: Int, allowPartialRating: B
 //endregion
 
 //region StatusBar
-fun EventTarget.statusbar(op: (StatusBar.() -> Unit)? = null):StatusBar {
+fun EventTarget.statusbar(op: (StatusBar.() -> Unit)? = null): StatusBar {
     val statusBar = StatusBar().apply {
         leftItems.clear()
         rightItems.clear()
@@ -208,14 +210,14 @@ fun EventTarget.statusbar(op: (StatusBar.() -> Unit)? = null):StatusBar {
     return opcr(this, statusBar, op)
 }
 
-fun EventTarget.statusbar(text: String? = null, op: (StatusBar.() -> Unit)? = null):StatusBar {
+fun EventTarget.statusbar(text: String? = null, op: (StatusBar.() -> Unit)? = null): StatusBar {
     val statusBar = statusbar(op).apply {
         this.text = text
     }
     return opcr(this, statusBar, op)
 }
 
-fun EventTarget.statusbar(text: ObservableValue<String>? = null, op: (StatusBar.() -> Unit)? = null):StatusBar {
+fun EventTarget.statusbar(text: ObservableValue<String>? = null, op: (StatusBar.() -> Unit)? = null): StatusBar {
     val statusBar = statusbar(op).apply {
         if (text != null) this.textProperty().bind(text)
     }
@@ -275,5 +277,113 @@ fun EventTarget.rangeslider(
         highValueProperty().bindBidirectional(highValue)
     }
     return opcr(this, rangeSlider, op)
+}
+//endregion
+
+//region WorldMapView
+fun EventTarget.worldmapView(locations: List<WorldMapView.Location>? = null, selectedLocations: List<WorldMapView.Location>? = null,
+                             selectedCountries: List<WorldMapView.Country>? = null,
+                             op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+    val worldMapView = WorldMapView().apply {
+        if (locations != null) this.locations.setAll(locations)
+        if (selectedLocations != null) this.selectedLocations.setAll(selectedLocations)
+        if (selectedCountries != null) this.selectedCountries.setAll(selectedCountries)
+
+    }
+    return opcr(this, worldMapView, op)
+}
+
+fun EventTarget.worldmapView(locations: ListProperty<WorldMapView.Location>? = null, selectedLocations: ListProperty<WorldMapView.Location>? = null,
+                             selectedCountries: ListProperty<WorldMapView.Country>? = null,
+                             op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+    val worldMapView = WorldMapView().apply {
+        if (locations != null) locationsProperty().bind(locations)
+        if (selectedLocations != null) selectedLocationsProperty().bindBidirectional(selectedLocations)
+        if (selectedCountries != null) selectedCountriesProperty().bindBidirectional(selectedCountries)
+
+    }
+    return opcr(this, worldMapView, op)
+}
+
+fun EventTarget.worldmapView(op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+    val worldMapView = WorldMapView()
+    return opcr(this, worldMapView, op)
+}
+
+fun WorldMapView.countryViewFactory(op: WorldMapView.(WorldMapView.Country) -> WorldMapView.CountryView) {
+    this.countryViewFactory = Callback { op(it) }
+}
+
+fun WorldMapView.locationViewFactory(op: WorldMapView.(WorldMapView.Location) -> Node) {
+    this.locationViewFactory = Callback { op(it) }
+}
+//endregion
+
+//region InfoOverlay
+
+fun EventTarget.infooverlay(text: String, op: (InfoOverlay.() -> Unit)): InfoOverlay {
+    require(FX.addChildInterceptor == DEFAULT_CONTROLFX_CHILD_INTERCEPTOR,
+            {"You need to apply controlfx DEFAULT_CONTROLFX_CHILD_INTERCEPTOR to FX.addChildInterceptor for infooverlay to work"})
+    val infoOverlay = InfoOverlay().apply {
+        this.text = text
+    }
+    return opcr(this, infoOverlay,op)
+}
+
+fun EventTarget.infooverlay(imageUrl: String, text: String, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay =
+        opcr(this, InfoOverlay(imageUrl, text), op)
+
+fun EventTarget.infooverlay(content: Node, text: String, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay =
+        opcr(this, InfoOverlay(content, text), op)
+
+fun EventTarget.infooverlay(node: Property<Node>, text: Property<String>, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay {
+    val infoOverlay = InfoOverlay().apply {
+        contentProperty().bindBidirectional(node)
+        textProperty().bindBidirectional(text)
+    }
+    return opcr(this, infoOverlay, op)
+}
+//endregion
+
+//region Prefix Selection
+fun <T> EventTarget.prefixselectioncombobox(op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+    return opcr(this, PrefixSelectionComboBox(), op)
+}
+
+fun <T> EventTarget.prefixselectioncombobox(items: List<T>, lookup: ComboBox<T>.(String) -> Optional<T>, op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+    val comboBox = PrefixSelectionComboBox<T>().apply {
+        this.items = items.observable()
+        val internal: (ComboBox<*>, String) -> Optional<*> = { _, str -> lookup(this, str) }
+        this.lookup = BiFunction<ComboBox<*>, String, Optional<*>>(internal)
+    }
+
+    return opcr(this, comboBox, op)
+}
+
+fun <T> EventTarget.prefixselectioncombobox(items: ListProperty<T>, op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+    val comboBox = PrefixSelectionComboBox<T>().apply {
+        this.itemsProperty().bindBidirectional(items)
+    }
+
+    return opcr(this, comboBox, op)
+}
+
+fun <T> PrefixSelectionComboBox<T>.lookup(op: PrefixSelectionComboBox<T>.(String) -> T?) {
+    val internal: (ComboBox<*>, String) -> Optional<T> = { _, str ->
+        val result = op(this, str)
+        when (result) {
+            null -> Optional.empty()
+            else -> Optional.of(result)
+        }
+    }
+    this.lookup = BiFunction<ComboBox<*>, String, Optional<*>>(internal)
+}
+
+
+fun <T> EventTarget.prefixselectionchoicebox(items: ListProperty<T>? = null, op: (PrefixSelectionChoiceBox<T>.() -> Unit)? = null): PrefixSelectionChoiceBox<T> {
+    val prefixSelectionChoiceBox = PrefixSelectionChoiceBox<T>().apply {
+        if (items != null) itemsProperty().bindBidirectional(items)
+    }
+    return opcr(this, prefixSelectionChoiceBox, op)
 }
 //endregion

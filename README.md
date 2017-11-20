@@ -11,12 +11,13 @@ https://controlsfx.bitbucket.io/
 
 
 * [ ] BreadCrumbBar
+* [ ] Borders
 * [X] CheckListView
 * [ ] CheckComboBox
 * [ ] CheckTreeView
 * [ ] Glyphs
-* [ ] CustomPasswordField
-* [ ] CustomTextField
+* [X] CustomPasswordField
+* [X] CustomTextField
 * [ ] Picker
 * [X] ProgressDialog
 * [X] ExceptionDialog
@@ -25,13 +26,14 @@ https://controlsfx.bitbucket.io/
 * [ ] SpreadsheetView
 * [X] StatusBar
 * [X] ToggleSwitch
-* [ ] WorldMapView
+* [X] WorldMapView
 * [ ] SegmentedBar
 * [X] Rating
-* [ ] PropertySheet
+* [X] PropertySheet
 * [X] PopOver
 * [X] Plus/Minus Slider
-* [ ] Notifications
+* [X] Notifications
+* [X] NotificationsPane
 * [X] MasterDetailPane
 * [X] MaskerPane
 * [ ] LoginDialog
@@ -39,3 +41,7 @@ https://controlsfx.bitbucket.io/
 * [ ] GridView
 * [ ] FontAwesome
 * [ ] Decorator
+* [X] InfoOverlay
+* [X] Prefix Selection Combobox/Choicebox
+* [X] SnapshotView
+* [X] HiddenSidesPane
