@@ -11,6 +11,7 @@ import org.controlsfx.control.HiddenSidesPane
 import org.controlsfx.control.MasterDetailPane
 import org.controlsfx.control.NotificationPane
 import org.controlsfx.control.SnapshotView
+import org.controlsfx.tools.Borders
 import tornadofx.*
 import kotlin.reflect.KFunction1
 
@@ -98,4 +99,16 @@ fun EventTarget.snapshotview(selectionProperty: Property<Rectangle2D>, op: (Snap
 
     return opcr(this, snapshotView, op)
 }
+//endregion
+
+//region Borders
+
+fun Node.borders(op: (Borders.() -> Borders)? = null): Node {
+    val currentParent = this.parent
+    removeFromParent()
+    val wrappedNode = Borders.wrap(this)
+    op?.invoke(wrappedNode)
+    return opcr(currentParent, wrappedNode.build())
+}
+
 //endregion

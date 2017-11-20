@@ -11,6 +11,7 @@ https://controlsfx.bitbucket.io/
 
 
 * [ ] BreadCrumbBar
+* [ ] Borders
 * [X] CheckListView
 * [ ] CheckComboBox
 * [ ] CheckTreeView
