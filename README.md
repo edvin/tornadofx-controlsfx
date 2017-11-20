@@ -43,4 +43,5 @@ https://controlsfx.bitbucket.io/
 * [ ] Decorator
 * [X] InfoOverlay
 * [X] Prefix Selection Combobox/Choicebox
+* [X] SnapshotView
 * [X] HiddenSidesPane
