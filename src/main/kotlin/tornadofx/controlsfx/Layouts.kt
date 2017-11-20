@@ -87,6 +87,8 @@ internal fun HiddenSidesPane.region(region: KFunction1<HiddenSidesPane, ObjectPr
 
 //region SnapshotView
 fun EventTarget.snapshotview(op: (SnapshotView.() -> Unit)? = null): SnapshotView {
+    require(FX.addChildInterceptor == DEFAULT_CONTROLFX_CHILD_INTERCEPTOR,
+            {"You need to apply controlfx DEFAULT_CONTROLFX_CHILD_INTERCEPTOR to FX.addChildInterceptor for snapshotview to work"})
     val snapshotView = SnapshotView()
 
     return opcr(this, snapshotView, op)
