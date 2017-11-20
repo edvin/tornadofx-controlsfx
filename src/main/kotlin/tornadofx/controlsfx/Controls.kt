@@ -1,16 +1,14 @@
 package tornadofx.controlsfx
 
 import impl.org.controlsfx.table.ColumnFilter
-import javafx.beans.property.DoubleProperty
-import javafx.beans.property.Property
-import javafx.beans.property.SimpleBooleanProperty
-import javafx.beans.property.SimpleDoubleProperty
+import javafx.beans.property.*
 import javafx.beans.value.ObservableValue
 import javafx.event.EventTarget
 import javafx.geometry.Orientation
 import javafx.scene.Node
 import javafx.scene.control.*
 import javafx.stage.PopupWindow
+import javafx.util.Callback
 import org.controlsfx.control.*
 import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
@@ -280,6 +278,8 @@ fun EventTarget.rangeslider(
     }
     return opcr(this, rangeSlider, op)
 }
+//endregion
+
 //region WorldMapView
 fun EventTarget.worldmapView(locations: List<WorldMapView.Location>? = null, selectedLocations: List<WorldMapView.Location>? = null,
                              selectedCountries: List<WorldMapView.Country>? = null,
@@ -318,6 +318,41 @@ fun WorldMapView.locationViewFactory(op: WorldMapView.(WorldMapView.Location) ->
     this.locationViewFactory = Callback { op(it) }
 }
 //endregion
+
+//region InfoOverlay
+
+fun EventTarget.infooverlay(text: String, op: (InfoOverlay.() -> Unit)): InfoOverlay {
+    FX.addChildInterceptor = { parent, node, _ ->
+        if (parent is InfoOverlay) {
+            parent.run {
+                this.content = node
+                this.text = text
+            }
+            addChildIfPossible(parent)
+            true
+        } else
+            false
+    }
+    val infoOverlay = InfoOverlay()
+    op.invoke(infoOverlay)
+    return infoOverlay
+}
+
+fun EventTarget.infooverlay(imageUrl: String, text: String, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay =
+        opcr(this, InfoOverlay(imageUrl, text), op)
+
+fun EventTarget.infooverlay(content: Node, text: String, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay =
+        opcr(this, InfoOverlay(content, text), op)
+
+fun EventTarget.infooverlay(node: Property<Node>, text: Property<String>, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay {
+    val infoOverlay = InfoOverlay().apply {
+        contentProperty().bindBidirectional(node)
+        textProperty().bindBidirectional(text)
+    }
+    return opcr(this, infoOverlay, op)
+}
+//endregion
+
 //region Prefix Selection
 fun <T> EventTarget.prefixselectioncombobox(op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
     return opcr(this, PrefixSelectionComboBox(), op)

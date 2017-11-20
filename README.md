@@ -40,5 +40,6 @@ https://controlsfx.bitbucket.io/
 * [ ] GridView
 * [ ] FontAwesome
 * [ ] Decorator
+* [X] InfoOverlay
 * [X] Prefix Selection Combobox/Choicebox
 * [X] HiddenSidesPane
