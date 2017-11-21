@@ -4,3 +4,9 @@
 *.iml
 *.ipr
 *.iws
+### Gradle template
+.gradle
+/build/
+out/
+
+
