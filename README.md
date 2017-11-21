@@ -36,7 +36,6 @@ https://controlsfx.bitbucket.io/
 * [X] NotificationsPane
 * [X] MasterDetailPane
 * [X] MaskerPane
-* [ ] LoginDialog
 * [X] HyperlinkLabel
 * [ ] GridView
 * [ ] FontAwesome
@@ -46,3 +45,5 @@ https://controlsfx.bitbucket.io/
 * [X] Prefix Selection Combobox/Choicebox
 * [X] SnapshotView
 * [X] HiddenSidesPane
+* [X] LoginDialog
+* [X] CommandLinksDialog
