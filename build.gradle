@@ -1,29 +1,111 @@
 buildscript {
-  ext.kotlin_version = '1.1.60'
+    ext.kotlin_version = '1.1.60'
 
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-  }
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
+    }
 }
+
 apply plugin: "kotlin"
 apply plugin: "idea"
+apply plugin: "maven"
+apply plugin: "signing"
+
 compileKotlin {
-  kotlinOptions.jvmTarget= "1.8"
+    kotlinOptions.jvmTarget = "1.8"
 }
+
 compileTestKotlin {
-    kotlinOptions.jvmTarget= "1.8"
+    kotlinOptions.jvmTarget = "1.8"
 }
+
 repositories {
-  mavenCentral()
+    mavenCentral()
+    jcenter()
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile ('no.tornado:tornadofx:1.7.12'){
-        exclude group:'org.glassfish'
+    compile('no.tornado:tornadofx:1.7.12') {
+        exclude group: 'org.glassfish'
     }
     compile 'org.controlsfx:controlsfx:8.40.14'
+}
+
+// Add -Psign to command line to activate signing
+signing {
+    if (project.hasProperty('sign')) {
+        sign configurations.archives
+    }
+}
+
+group = "no.tornado"
+archivesBaseName = "tornadofx-controlsfx"
+version = "0.1"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            if (project.hasProperty('sign')) {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                pom.project {
+                    name 'TornadoFX-ControlsFX Integration'
+                    packaging 'jar'
+                    description 'TornadoFX integration library for ControlsFX'
+                    url 'https://github.com/edvin/tornadofx-controlsfx'
+
+                    scm {
+                        connection 'scm:svn:https://github.com/edvin/tornadofx-controlsfx'
+                        developerConnection 'scm:svn:https://github.com/edvin/tornadofx-controlsfx'
+                        url 'https://github.com/edvin/tornadofx-controlsfx'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'edvin'
+                            name 'Edvin Syse'
+                            email 'es@syse.no'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
 }

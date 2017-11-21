@@ -2,6 +2,27 @@
 
 ControlsFX Builder extensions and utilities for TornadoFX.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/no.tornado/tornadofx-controlsfx/badge.svg)](https://search.maven.org/#search|ga|1|no.tornado.tornadofx-controlsfx)
+[![Apache License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+
+### Add TornadoFX-ControlsFX to your project
+
+#### Maven
+
+```xml
+<dependency>
+    <groupId>no.tornado</groupId>
+    <artifactId>tornadofx-controlsfx</artifactId>
+    <version>0.1</version>
+</dependency>
+```
+
+### Gradle
+
+```groovy
+compile 'no.tornado:tornadofx-controlsfx:0.1'
+```
+
 ## TO-DO 
 
 I might have missed some or may have included extraneous utilities, but any help to create a TornadoFX DSL for the following is welcome. 
