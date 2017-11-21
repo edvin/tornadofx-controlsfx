@@ -8,6 +8,7 @@ import org.controlsfx.control.action.Action
 
 
 internal fun notification(title: String?,
+                          text:String?,
                           graphic: Node?,
                           position: Pos = Pos.BOTTOM_RIGHT,
                           hideAfter: Duration = Duration.seconds(5.0),
@@ -15,6 +16,7 @@ internal fun notification(title: String?,
     val notification = Notifications
             .create()
             .title(title ?: "")
+            .text(text ?: "")
             .graphic(graphic)
             .position(position)
             .hideAfter(hideAfter)
@@ -28,42 +30,48 @@ internal fun notification(title: String?,
 
 
 fun warningNotification(title: String?,
+                        text:String?,
                         position: Pos = Pos.BOTTOM_RIGHT,
                         hideAfter: Duration = Duration.seconds(5.0),
                         darkStyle: Boolean = false, owner: Any? = null, vararg action: Action) {
-    notification(title, null, position, hideAfter, darkStyle, owner, *action)
+    notification(title, text,null, position, hideAfter, darkStyle, owner, *action)
             .showWarning()
 }
 
 fun infoNotification(title: String?,
+                     text:String?,
                      position: Pos = Pos.BOTTOM_RIGHT,
                      hideAfter: Duration = Duration.seconds(5.0),
                      darkStyle: Boolean = false, owner: Any? = null, vararg action: Action) {
-    notification(title, null, position, hideAfter, darkStyle, owner, *action)
+    notification(title, text,null, position, hideAfter, darkStyle, owner, *action)
             .showInformation()
 }
 
 fun confirmNotification(title: String?,
+                        text:String?,
                         position: Pos = Pos.BOTTOM_RIGHT,
                         hideAfter: Duration = Duration.seconds(5.0),
                         darkStyle: Boolean = false, owner: Any? = null, vararg action: Action) {
-    notification(title, null, position, hideAfter, darkStyle, owner, *action)
+    notification(title,text, null, position, hideAfter, darkStyle, owner, *action)
             .showConfirm()
 }
 
 fun errorNotification(title: String?,
+                      text:String?,
                       position: Pos = Pos.BOTTOM_RIGHT,
                       hideAfter: Duration = Duration.seconds(5.0),
                       darkStyle: Boolean = false, owner: Any? = null, vararg action: Action) {
-    notification(title, null, position, hideAfter, darkStyle, owner, *action)
+    notification(title,text, null, position, hideAfter, darkStyle, owner, *action)
             .showError()
 }
 
-fun customNotification(title: String, graphic: Node,
+fun customNotification(title: String?,
+                       text:String?,
+                       graphic: Node,
                        position: Pos = Pos.BOTTOM_RIGHT,
                        hideAfter: Duration = Duration.seconds(5.0),
                        darkStyle: Boolean = false, owner: Any? = null,
                        vararg action: Action) {
-    notification(title, graphic, position, hideAfter, darkStyle, owner, *action)
+    notification(title, text,graphic, position, hideAfter, darkStyle, owner, *action)
             .show()
 }

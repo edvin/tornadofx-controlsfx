@@ -12,27 +12,27 @@ class NotificationsView : View("Notifications") {
     override val root = vbox(10) {
         button("Warning") {
             action {
-                warningNotification("Warning")
+                warningNotification("Warning","Text")
             }
         }
         button("Info") {
             action {
-                infoNotification("Info With Owner", owner = this@vbox)
+                infoNotification("Info With Owner","Text", owner = this@vbox)
             }
         }
         button("Confirm") {
             action {
-                confirmNotification("Confirm Dark Style", darkStyle = true)
+                confirmNotification("Confirm Dark Style","Text", darkStyle = true)
             }
         }
         button("Error") {
             action {
-                errorNotification("Error With Top Left Position", position = Pos.TOP_LEFT)
+                errorNotification("Error With Top Left Position","Text", position = Pos.TOP_LEFT)
             }
         }
         button("Custom") {
             action {
-                customNotification("Custom", ImageView("tornado-fx-logo.png"))
+                customNotification("Custom","Text", ImageView("tornado-fx-logo.png"))
             }
         }
     }
