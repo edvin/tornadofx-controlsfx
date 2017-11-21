@@ -10,12 +10,12 @@ Please read JavaDocs for full list of controls:
 https://controlsfx.bitbucket.io/
 
 
-* [ ] BreadCrumbBar
-* [ ] Borders
+* [X] BreadCrumbBar
+* [X] Borders
 * [X] CheckListView
 * [ ] CheckComboBox
 * [ ] CheckTreeView
-* [ ] Glyphs
+* [X] Glyphs
 * [X] CustomPasswordField
 * [X] CustomTextField
 * [ ] Picker
@@ -36,12 +36,14 @@ https://controlsfx.bitbucket.io/
 * [X] NotificationsPane
 * [X] MasterDetailPane
 * [X] MaskerPane
-* [ ] LoginDialog
 * [X] HyperlinkLabel
 * [ ] GridView
-* [ ] FontAwesome
+* [X] FontAwesome
 * [ ] Decorator
 * [X] InfoOverlay
+* [X] ListSelectionView
 * [X] Prefix Selection Combobox/Choicebox
 * [X] SnapshotView
 * [X] HiddenSidesPane
+* [X] LoginDialog
+* [X] CommandLinksDialog

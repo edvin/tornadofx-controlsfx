@@ -22,6 +22,8 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'no.tornado:tornadofx:1.7.12'
+    compile ('no.tornado:tornadofx:1.7.12'){
+        exclude group:'org.glassfish'
+    }
     compile 'org.controlsfx:controlsfx:8.40.14'
 }
