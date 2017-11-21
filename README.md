@@ -10,8 +10,8 @@ Please read JavaDocs for full list of controls:
 https://controlsfx.bitbucket.io/
 
 
-* [ ] BreadCrumbBar
-* [ ] Borders
+* [X] BreadCrumbBar
+* [X] Borders
 * [X] CheckListView
 * [ ] CheckComboBox
 * [ ] CheckTreeView
