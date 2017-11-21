@@ -15,7 +15,7 @@ https://controlsfx.bitbucket.io/
 * [X] CheckListView
 * [ ] CheckComboBox
 * [ ] CheckTreeView
-* [ ] Glyphs
+* [X] Glyphs
 * [X] CustomPasswordField
 * [X] CustomTextField
 * [ ] Picker
@@ -38,7 +38,7 @@ https://controlsfx.bitbucket.io/
 * [X] MaskerPane
 * [X] HyperlinkLabel
 * [ ] GridView
-* [ ] FontAwesome
+* [X] FontAwesome
 * [ ] Decorator
 * [X] InfoOverlay
 * [X] ListSelectionView

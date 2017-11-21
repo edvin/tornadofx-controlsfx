@@ -13,6 +13,7 @@ import org.controlsfx.control.*
 import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
 import org.controlsfx.glyphfont.Glyph
+import org.controlsfx.glyphfont.GlyphFontRegistry
 import tornadofx.*
 import java.util.*
 import java.util.function.BiFunction
@@ -67,8 +68,9 @@ fun <T> ColumnFilter<T, *>.exceptValues(vararg values: Any?) {
     values.forEach { selectValue(it) }
 }
 
+//region Fontawesome + Glyph
 private val fontAwesome by lazy {
-    FontAwesome("http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf")
+    GlyphFontRegistry.font("FontAwesome")
 }
 
 fun FontAwesome.Glyph.toGlyph(op: (Glyph.() -> Unit)? = null): Glyph {
@@ -77,13 +79,26 @@ fun FontAwesome.Glyph.toGlyph(op: (Glyph.() -> Unit)? = null): Glyph {
     return glyph
 }
 
-//ToggleSwitch
+fun EventTarget.glyph(op: (Glyph.() -> Unit)? = null): Glyph = opcr(this, Glyph(), op)
+
+fun EventTarget.glyph(fontFamily: String, unicode: Char, op: (Glyph.() -> Unit)? = null): Glyph {
+    return opcr(this, Glyph(fontFamily, unicode), op)
+}
+
+fun EventTarget.glyph(fontFamily: String, icon: Any, op: (Glyph.() -> Unit)? = null): Glyph {
+    return opcr(this, Glyph(fontFamily, icon), op)
+}
+
+//endregion
+
+//region ToggleSwitch
 
 fun EventTarget.toggleswitch(text: String? = null, selectedProperty: Property<Boolean>? = null, op: (ToggleSwitch.() -> Unit) = {}): ToggleSwitch {
     val toggleSwitch = ToggleSwitch(text)
     toggleSwitch.selectedProperty().bindBidirectional(selectedProperty)
     return opcr(this, toggleSwitch, op)
 }
+//endregion
 
 //SegmentedButton
 
@@ -323,11 +338,11 @@ fun WorldMapView.locationViewFactory(op: WorldMapView.(WorldMapView.Location) ->
 
 fun EventTarget.infooverlay(text: String, op: (InfoOverlay.() -> Unit)): InfoOverlay {
     require(FX.addChildInterceptor == DEFAULT_CONTROLFX_CHILD_INTERCEPTOR,
-            {"You need to apply controlfx DEFAULT_CONTROLFX_CHILD_INTERCEPTOR to FX.addChildInterceptor for infooverlay to work"})
+            { "You need to apply controlfx DEFAULT_CONTROLFX_CHILD_INTERCEPTOR to FX.addChildInterceptor for infooverlay to work" })
     val infoOverlay = InfoOverlay().apply {
         this.text = text
     }
-    return opcr(this, infoOverlay,op)
+    return opcr(this, infoOverlay, op)
 }
 
 fun EventTarget.infooverlay(imageUrl: String, text: String, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay =
