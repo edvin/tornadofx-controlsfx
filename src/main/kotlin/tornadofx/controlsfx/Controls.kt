@@ -387,3 +387,18 @@ fun <T> EventTarget.prefixselectionchoicebox(items: ListProperty<T>? = null, op:
     return opcr(this, prefixSelectionChoiceBox, op)
 }
 //endregion
+
+//region ListSelectionView
+fun <T> EventTarget.listSelectionView(op: (ListSelectionView<T>.() -> Unit)? = null): ListSelectionView<T> =
+        opcr(this, ListSelectionView(), op)
+
+fun <T> EventTarget.listSelectionView(sourceItems: ListProperty<T>? = null,
+                                      targetItems: ListProperty<T>? = null,
+                                      op: (ListSelectionView<T>.() -> Unit)? = null): ListSelectionView<T> {
+    val listSelectionView = ListSelectionView<T>().apply {
+        if (sourceItems != null) this.sourceItemsProperty().bindBidirectional(sourceItems)
+        if (targetItems != null) this.targetItemsProperty().bindBidirectional(sourceItems)
+    }
+    return opcr(this, listSelectionView, op)
+}
+//endregion

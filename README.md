@@ -42,6 +42,7 @@ https://controlsfx.bitbucket.io/
 * [ ] FontAwesome
 * [ ] Decorator
 * [X] InfoOverlay
+* [X] ListSelectionView
 * [X] Prefix Selection Combobox/Choicebox
 * [X] SnapshotView
 * [X] HiddenSidesPane
