@@ -89,6 +89,11 @@ uploadArchives {
                             name 'Edvin Syse'
                             email 'es@syse.no'
                         }
+                        developer {
+                            id 'sleonidy'
+                            name 'Leonid Yanovsky'
+                            email 'sleonidy@gmail.com'
+                        }
                     }
                 }
             }
