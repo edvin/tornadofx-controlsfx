@@ -17,13 +17,41 @@ ControlsFX Builder extensions and utilities for TornadoFX.
 </dependency>
 ```
 
-### Gradle
+#### Gradle
 
 ```groovy
 compile 'no.tornado:tornadofx-controlsfx:0.1'
 ```
 
-## TO-DO 
+
+## Examples
+
+### TableView Filter
+
+```kotlin
+class TableFilterView : View() {
+    override val root = tableview(patients) {
+
+        column("FIRST NAME", Patient::firstName)
+        column("LAST NAME", Patient::lastName)
+        column("GENDER", Patient::gender) {
+            columnfilter {
+                exceptValue(Gender.FEMALE)
+            }
+        }
+        column("BIRTHDAY", Patient::birthday)
+        column("AGE", Patient::age)
+        column("WBCC", Patient::whiteBloodCellCount)
+
+        tableFilter.executeFilter()
+    }
+}
+```
+
+###
+
+
+## Contributing
 
 I might have missed some or may have included extraneous utilities, but any help to create a TornadoFX DSL for the following is welcome. 
 
