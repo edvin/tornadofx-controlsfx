@@ -48,6 +48,33 @@ class TableFilterView : View() {
 }
 ```
 
+![](https://i.imgur.com/OZJuBvG.png)
+
+### BreadCrumbBar
+
+```kotlin
+class BreadCrumbPane: View() {
+
+    var targetCrumb: TreeItem<String>? = null
+
+    override val root = breadcrumbbar<String> {
+        treeitem("Alpha") {
+            treeitem("Beta") {
+                targetCrumb = treeitem("Gamma")
+            }
+            treeitem("Zeta")
+        }
+
+        selectedCrumb = targetCrumb
+    }
+}
+```
+
+![](https://i.imgur.com/OzxetsK.png)
+
+
+
+
 ###
 
 
