@@ -94,6 +94,11 @@ uploadArchives {
                             name 'Leonid Yanovsky'
                             email 'sleonidy@gmail.com'
                         }
+                        developer {
+                            id 'thomasnield'
+                            name 'Thomas Nield'
+                            email 'thomasnield@live.com'
+                        }
                     }
                 }
             }
