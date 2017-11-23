@@ -1,6 +1,6 @@
 # TornadoFX-ControlsFX
 
-[ControlsFX[(http://fxexperience.com/controlsfx/features/) builder extensions and utilities for [TornadoFX](https://github.com/edvin/tornadofx).
+[ControlsFX](http://fxexperience.com/controlsfx/features/) builder extensions and utilities for [TornadoFX](https://github.com/edvin/tornadofx).
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/no.tornado/tornadofx-controlsfx/badge.svg)](https://search.maven.org/#search|ga|1|no.tornado.tornadofx-controlsfx)
 [![Apache License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
