@@ -232,8 +232,38 @@ fun EventTarget.statusbar(text: ObservableValue<String>? = null, progress: Doubl
     return opcr(this, statusBar, op)
 }
 
+fun StatusBar.left(op: StatusBar.() -> Unit) {
+    val interceptor = object : ChildInterceptor {
+        override fun invoke(parent: EventTarget, node: Node, index: Int?): Boolean {
+            if (parent is StatusBar) {
+                parent.leftItems += node
+                return true
+            }
+            return false
+        }
+
     }
+    FX.addChildInterceptor(interceptor)
+    op()
+    FX.removeChildInterceptor(interceptor)
 }
+
+fun StatusBar.right(op: StatusBar.() -> Unit) {
+    val interceptor = object : ChildInterceptor {
+        override fun invoke(parent: EventTarget, node: Node, index: Int?): Boolean {
+            if (parent is StatusBar) {
+                parent.rightItems += node
+                return true
+            }
+            return false
+        }
+
+    }
+    FX.addChildInterceptor(interceptor)
+    op()
+    FX.removeChildInterceptor(interceptor)
+}
+
 //endregion
 
 //region PlusMinusSlider
