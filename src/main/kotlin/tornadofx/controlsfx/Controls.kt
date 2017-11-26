@@ -3,6 +3,7 @@ package tornadofx.controlsfx
 import impl.org.controlsfx.table.ColumnFilter
 import javafx.beans.property.*
 import javafx.beans.value.ObservableValue
+import javafx.collections.ObservableList
 import javafx.event.EventTarget
 import javafx.geometry.Orientation
 import javafx.scene.Node
@@ -441,4 +442,17 @@ fun <T> EventTarget.listSelectionView(sourceItems: ListProperty<T>? = null,
     return opcr(this, listSelectionView, op)
 }
 //endregion
+
+//region CheckComboBox
+fun <T> EventTarget.checkcombobox(items: ObservableList<T>, checkedItems: ObservableList<T>? = null, op: (CheckComboBox<T>.() -> Unit) = {}): CheckComboBox<T> {
+
+    val checkComboBox = CheckComboBox<T>(items).apply {
+        this.items.bind(items, { it })
+        checkedItems?.bind(this.checkModel.checkedItems, { it })
+    }
+    return opcr(this, checkComboBox, op)
+}
+//endregion
+
+
 
