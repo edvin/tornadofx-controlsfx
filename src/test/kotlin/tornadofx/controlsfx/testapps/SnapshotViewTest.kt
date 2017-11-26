@@ -4,16 +4,14 @@ import javafx.animation.AnimationTimer
 import javafx.beans.property.SimpleObjectProperty
 import javafx.geometry.Side
 import javafx.scene.image.Image
-import javafx.scene.image.ImageView
 import org.controlsfx.control.SnapshotView
 import tornadofx.*
-import tornadofx.controlsfx.*
+import tornadofx.controlsfx.detail
+import tornadofx.controlsfx.master
+import tornadofx.controlsfx.masterdetailpane
+import tornadofx.controlsfx.snapshotview
 
-class SnapshotViewApp : App(SnapshotViewTest::class){
-    init {
-        FX.addChildInterceptor = DEFAULT_CONTROLFX_CHILD_INTERCEPTOR
-    }
-}
+class SnapshotViewApp : App(SnapshotViewTest::class)
 
 class SnapshotViewTest : View("SnapshotView") {
     val selectedImageProperty = SimpleObjectProperty<Image>()

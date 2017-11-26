@@ -2,11 +2,14 @@ package tornadofx.controlsfx
 
 import javafx.event.EventTarget
 import javafx.scene.Node
+import javafx.scene.control.ToggleButton
 import org.controlsfx.control.InfoOverlay
+import org.controlsfx.control.SegmentedButton
 import org.controlsfx.control.SnapshotView
+import tornadofx.*
 
-val DEFAULT_CONTROLFX_CHILD_INTERCEPTOR = { parent: EventTarget, node: Node, index: Int? ->
-    when (parent) {
+class ControlsFXChildInterceptor : ChildInterceptor {
+    override fun invoke(parent: EventTarget, node: Node, index: Int?): Boolean = when (parent) {
         is SnapshotView -> {
             parent.node = node
             true
@@ -17,6 +20,9 @@ val DEFAULT_CONTROLFX_CHILD_INTERCEPTOR = { parent: EventTarget, node: Node, ind
                 this.text
             }
             true
+        }
+        is SegmentedButton -> {
+            parent.buttons.add(node as ToggleButton)
         }
         else -> false
     }

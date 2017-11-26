@@ -337,8 +337,6 @@ fun WorldMapView.locationViewFactory(op: WorldMapView.(WorldMapView.Location) ->
 //region InfoOverlay
 
 fun EventTarget.infooverlay(text: String, op: (InfoOverlay.() -> Unit)): InfoOverlay {
-    require(FX.addChildInterceptor == DEFAULT_CONTROLFX_CHILD_INTERCEPTOR,
-            { "You need to apply controlfx DEFAULT_CONTROLFX_CHILD_INTERCEPTOR to FX.addChildInterceptor for infooverlay to work" })
     val infoOverlay = InfoOverlay().apply {
         this.text = text
     }
