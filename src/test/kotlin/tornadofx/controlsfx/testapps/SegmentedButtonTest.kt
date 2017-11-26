@@ -8,9 +8,9 @@ class SegmentedButtonApp: App(SegmentedbuttonView::class)
 class SegmentedbuttonView: View() {
 
     override val root = segmentedbutton {
-        button("YES")
-        button("NO")
-        button("MAYBE")
+        togglebutton("YES")
+        togglebutton("NO")
+        togglebutton("MAYBE")
 
     }
 }
