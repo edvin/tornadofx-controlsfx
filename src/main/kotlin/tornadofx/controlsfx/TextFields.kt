@@ -31,18 +31,18 @@ fun <T> TextField.bindAutoCompletion(suggestionProvider: SuggestionProvider<T>) 
     TextFields.bindAutoCompletion(this, suggestionProvider)
 }
 
-fun EventTarget.clearableTextfield(op: (TextField.() -> Unit)? = null): TextField =
+fun EventTarget.clearableTextfield(op: (TextField.() -> Unit) = {}): TextField =
         opcr(this, TextFields.createClearableTextField(), op)
 
-fun EventTarget.clearablePasswordTextfield(op: (TextField.() -> Unit)? = null): TextField =
+fun EventTarget.clearablePasswordTextfield(op: (TextField.() -> Unit) = {}): TextField =
         opcr(this, TextFields.createClearablePasswordField(), op)
 
-fun EventTarget.customTextfield(op: (CustomTextField.() -> Unit)? = null): CustomTextField {
+fun EventTarget.customTextfield(op: (CustomTextField.() -> Unit) = {}): CustomTextField {
     val customTextField = CustomTextField()
     return opcr(this, customTextField, op)
 }
 
-fun EventTarget.customPasswordTextfield(op: (CustomPasswordField.() -> Unit)? = null): CustomPasswordField {
+fun EventTarget.customPasswordTextfield(op: (CustomPasswordField.() -> Unit) = {}): CustomPasswordField {
     val customPasswordField = CustomPasswordField().apply {
         this.left = left
         this.right = right
@@ -50,7 +50,7 @@ fun EventTarget.customPasswordTextfield(op: (CustomPasswordField.() -> Unit)? = 
     return opcr(this, customPasswordField, op)
 }
 
-fun EventTarget.customTextfield(left: Node? = null, right: Node? = null, op: (CustomTextField.() -> Unit)? = null): CustomTextField {
+fun EventTarget.customTextfield(left: Node? = null, right: Node? = null, op: (CustomTextField.() -> Unit) = {}): CustomTextField {
     val customTextField = CustomTextField().apply {
         this.left = left
         this.right = right
@@ -58,7 +58,7 @@ fun EventTarget.customTextfield(left: Node? = null, right: Node? = null, op: (Cu
     return opcr(this, customTextField, op)
 }
 
-fun EventTarget.customPasswordTextfield(left: Node? = null, right: Node? = null, op: (CustomPasswordField.() -> Unit)? = null): CustomPasswordField {
+fun EventTarget.customPasswordTextfield(left: Node? = null, right: Node? = null, op: (CustomPasswordField.() -> Unit) = {}): CustomPasswordField {
     val customPasswordField = CustomPasswordField().apply {
         this.left = left
         this.right = right
@@ -66,7 +66,7 @@ fun EventTarget.customPasswordTextfield(left: Node? = null, right: Node? = null,
     return opcr(this, customPasswordField, op)
 }
 
-fun EventTarget.customTextfield(left: Property<Node>? = null, right: Property<Node>? = null, op: (CustomTextField.() -> Unit)? = null): CustomTextField {
+fun EventTarget.customTextfield(left: Property<Node>? = null, right: Property<Node>? = null, op: (CustomTextField.() -> Unit) = {}): CustomTextField {
     val customTextField = CustomTextField().apply {
         if (left != null) this.leftProperty().bindBidirectional(left)
         if (right != null) this.rightProperty().bindBidirectional(right)
@@ -74,7 +74,7 @@ fun EventTarget.customTextfield(left: Property<Node>? = null, right: Property<No
     return opcr(this, customTextField, op)
 }
 
-fun EventTarget.customPasswordTextfield(left: Property<Node>? = null, right: Property<Node>? = null, op: (CustomPasswordField.() -> Unit)? = null): CustomPasswordField {
+fun EventTarget.customPasswordTextfield(left: Property<Node>? = null, right: Property<Node>? = null, op: (CustomPasswordField.() -> Unit) = {}): CustomPasswordField {
     val customPasswordField = CustomPasswordField().apply {
         if (left != null) this.leftProperty().bindBidirectional(left)
         if (right != null) this.rightProperty().bindBidirectional(right)

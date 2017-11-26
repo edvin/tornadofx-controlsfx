@@ -73,19 +73,19 @@ private val fontAwesome by lazy {
     GlyphFontRegistry.font("FontAwesome")
 }
 
-fun FontAwesome.Glyph.toGlyph(op: (Glyph.() -> Unit)? = null): Glyph {
+fun FontAwesome.Glyph.toGlyph(op: (Glyph.() -> Unit) = {}): Glyph {
     val glyph = fontAwesome.create(this)
-    op?.invoke(glyph)
+    op.invoke(glyph)
     return glyph
 }
 
-fun EventTarget.glyph(op: (Glyph.() -> Unit)? = null): Glyph = opcr(this, Glyph(), op)
+fun EventTarget.glyph(op: (Glyph.() -> Unit) = {}): Glyph = opcr(this, Glyph(), op)
 
-fun EventTarget.glyph(fontFamily: String, unicode: Char, op: (Glyph.() -> Unit)? = null): Glyph {
+fun EventTarget.glyph(fontFamily: String, unicode: Char, op: (Glyph.() -> Unit) = {}): Glyph {
     return opcr(this, Glyph(fontFamily, unicode), op)
 }
 
-fun EventTarget.glyph(fontFamily: String, icon: Any, op: (Glyph.() -> Unit)? = null): Glyph {
+fun EventTarget.glyph(fontFamily: String, icon: Any, op: (Glyph.() -> Unit) = {}): Glyph {
     return opcr(this, Glyph(fontFamily, icon), op)
 }
 
@@ -135,12 +135,12 @@ fun <T> BreadCrumbBar<T>.treeitem(value: T, op: TreeItem<T>.() -> Unit = {}): Tr
 }
 
 //region HyperlinkLabel
-fun EventTarget.hyperlinklabel(text: String, op: (HyperlinkLabel.() -> Unit)? = null): HyperlinkLabel {
+fun EventTarget.hyperlinklabel(text: String, op: (HyperlinkLabel.() -> Unit) = {}): HyperlinkLabel {
     val hyperlinkLabel = HyperlinkLabel(text)
     return opcr(this, hyperlinkLabel, op)
 }
 
-fun EventTarget.hyperlinklabel(text: ObservableValue<String>, op: (HyperlinkLabel.() -> Unit)? = null): HyperlinkLabel {
+fun EventTarget.hyperlinklabel(text: ObservableValue<String>, op: (HyperlinkLabel.() -> Unit) = {}): HyperlinkLabel {
     val hyperlinkLabel = HyperlinkLabel()
     hyperlinkLabel.textProperty().bind(text)
     return opcr(this, hyperlinkLabel, op)
@@ -187,7 +187,7 @@ fun Node.showPopover() {
 //endregion
 
 //region Rating
-fun EventTarget.rating(rating: Int, max: Int, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit)? = null): Rating {
+fun EventTarget.rating(rating: Int, max: Int, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit) = {}): Rating {
     val r = Rating(max, rating).apply {
         isPartialRating = allowPartialRating
         isPartialRating = updateRatingOnHover
@@ -196,7 +196,7 @@ fun EventTarget.rating(rating: Int, max: Int, allowPartialRating: Boolean = fals
 
 }
 
-fun EventTarget.rating(rating: Property<Number>, max: Property<Number>, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit)? = null): Rating {
+fun EventTarget.rating(rating: Property<Number>, max: Property<Number>, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit) = {}): Rating {
     val r = Rating().apply {
         ratingProperty().bindBidirectional(rating)
         maxProperty().bindBidirectional(max)
@@ -206,7 +206,7 @@ fun EventTarget.rating(rating: Property<Number>, max: Property<Number>, allowPar
     return opcr(this, r, op)
 }
 
-fun EventTarget.rating(rating: Property<Number>, max: Int, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit)? = null): Rating {
+fun EventTarget.rating(rating: Property<Number>, max: Int, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit) = {}): Rating {
     val r = Rating(max).apply {
         ratingProperty().bindBidirectional(rating)
         isPartialRating = allowPartialRating
@@ -242,7 +242,7 @@ fun EventTarget.statusbar(text: ObservableValue<String>? = null, op: (StatusBar.
 
 //region PlusMinusSlider
 
-fun EventTarget.plusminuslider(value: Property<Number>, orientation: Orientation = Orientation.HORIZONTAL, op: (PlusMinusSlider.() -> Unit)? = null): PlusMinusSlider {
+fun EventTarget.plusminuslider(value: Property<Number>, orientation: Orientation = Orientation.HORIZONTAL, op: (PlusMinusSlider.() -> Unit) = {}): PlusMinusSlider {
     val plusMinusSlider = PlusMinusSlider().apply {
         this.orientation = orientation
     }
@@ -275,7 +275,7 @@ fun EventTarget.maskerpane(progress: Property<Number> = SimpleDoubleProperty(Dou
 
 //region RangeSlider
 fun EventTarget.rangeslider(min: Double = 0.0, max: Double = 1.0, lowValue: Double = 0.25, highValue: Double = 0.75,
-                            op: (RangeSlider.() -> Unit)? = null): RangeSlider {
+                            op: (RangeSlider.() -> Unit) = {}): RangeSlider {
     val rangeSlider = RangeSlider(min, max, lowValue, highValue)
     return opcr(this, rangeSlider, op)
 }
@@ -284,7 +284,7 @@ fun EventTarget.rangeslider(
         lowValue: DoubleProperty,
         highValue: DoubleProperty,
         min: Double = 0.0, max: Double = 1.0,
-        op: (RangeSlider.() -> Unit)? = null): RangeSlider {
+        op: (RangeSlider.() -> Unit) = {}): RangeSlider {
     val rangeSlider = RangeSlider().apply {
         this.min = min
         this.max = max
@@ -298,7 +298,7 @@ fun EventTarget.rangeslider(
 //region WorldMapView
 fun EventTarget.worldmapView(locations: List<WorldMapView.Location>? = null, selectedLocations: List<WorldMapView.Location>? = null,
                              selectedCountries: List<WorldMapView.Country>? = null,
-                             op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+                             op: (WorldMapView.() -> Unit) = {}): WorldMapView {
     val worldMapView = WorldMapView().apply {
         if (locations != null) this.locations.setAll(locations)
         if (selectedLocations != null) this.selectedLocations.setAll(selectedLocations)
@@ -310,7 +310,7 @@ fun EventTarget.worldmapView(locations: List<WorldMapView.Location>? = null, sel
 
 fun EventTarget.worldmapView(locations: ListProperty<WorldMapView.Location>? = null, selectedLocations: ListProperty<WorldMapView.Location>? = null,
                              selectedCountries: ListProperty<WorldMapView.Country>? = null,
-                             op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+                             op: (WorldMapView.() -> Unit) = {}): WorldMapView {
     val worldMapView = WorldMapView().apply {
         if (locations != null) locationsProperty().bind(locations)
         if (selectedLocations != null) selectedLocationsProperty().bindBidirectional(selectedLocations)
@@ -320,7 +320,7 @@ fun EventTarget.worldmapView(locations: ListProperty<WorldMapView.Location>? = n
     return opcr(this, worldMapView, op)
 }
 
-fun EventTarget.worldmapView(op: (WorldMapView.() -> Unit)? = null): WorldMapView {
+fun EventTarget.worldmapView(op: (WorldMapView.() -> Unit) = {}): WorldMapView {
     val worldMapView = WorldMapView()
     return opcr(this, worldMapView, op)
 }
@@ -345,13 +345,13 @@ fun EventTarget.infooverlay(text: String, op: (InfoOverlay.() -> Unit)): InfoOve
     return opcr(this, infoOverlay, op)
 }
 
-fun EventTarget.infooverlay(imageUrl: String, text: String, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay =
+fun EventTarget.infooverlay(imageUrl: String, text: String, op: (InfoOverlay.() -> Unit) = {}): InfoOverlay =
         opcr(this, InfoOverlay(imageUrl, text), op)
 
-fun EventTarget.infooverlay(content: Node, text: String, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay =
+fun EventTarget.infooverlay(content: Node, text: String, op: (InfoOverlay.() -> Unit) = {}): InfoOverlay =
         opcr(this, InfoOverlay(content, text), op)
 
-fun EventTarget.infooverlay(node: Property<Node>, text: Property<String>, op: (InfoOverlay.() -> Unit)? = null): InfoOverlay {
+fun EventTarget.infooverlay(node: Property<Node>, text: Property<String>, op: (InfoOverlay.() -> Unit) = {}): InfoOverlay {
     val infoOverlay = InfoOverlay().apply {
         contentProperty().bindBidirectional(node)
         textProperty().bindBidirectional(text)
@@ -361,11 +361,11 @@ fun EventTarget.infooverlay(node: Property<Node>, text: Property<String>, op: (I
 //endregion
 
 //region Prefix Selection
-fun <T> EventTarget.prefixselectioncombobox(op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+fun <T> EventTarget.prefixselectioncombobox(op: (PrefixSelectionComboBox<T>.() -> Unit) = {}): PrefixSelectionComboBox<T> {
     return opcr(this, PrefixSelectionComboBox(), op)
 }
 
-fun <T> EventTarget.prefixselectioncombobox(items: List<T>, lookup: ComboBox<T>.(String) -> Optional<T>, op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+fun <T> EventTarget.prefixselectioncombobox(items: List<T>, lookup: ComboBox<T>.(String) -> Optional<T>, op: (PrefixSelectionComboBox<T>.() -> Unit) = {}): PrefixSelectionComboBox<T> {
     val comboBox = PrefixSelectionComboBox<T>().apply {
         this.items = items.observable()
         val internal: (ComboBox<*>, String) -> Optional<*> = { _, str -> lookup(this, str) }
@@ -375,7 +375,7 @@ fun <T> EventTarget.prefixselectioncombobox(items: List<T>, lookup: ComboBox<T>.
     return opcr(this, comboBox, op)
 }
 
-fun <T> EventTarget.prefixselectioncombobox(items: ListProperty<T>, op: (PrefixSelectionComboBox<T>.() -> Unit)? = null): PrefixSelectionComboBox<T> {
+fun <T> EventTarget.prefixselectioncombobox(items: ListProperty<T>, op: (PrefixSelectionComboBox<T>.() -> Unit) = {}): PrefixSelectionComboBox<T> {
     val comboBox = PrefixSelectionComboBox<T>().apply {
         this.itemsProperty().bindBidirectional(items)
     }
@@ -395,7 +395,7 @@ fun <T> PrefixSelectionComboBox<T>.lookup(op: PrefixSelectionComboBox<T>.(String
 }
 
 
-fun <T> EventTarget.prefixselectionchoicebox(items: ListProperty<T>? = null, op: (PrefixSelectionChoiceBox<T>.() -> Unit)? = null): PrefixSelectionChoiceBox<T> {
+fun <T> EventTarget.prefixselectionchoicebox(items: ListProperty<T>? = null, op: (PrefixSelectionChoiceBox<T>.() -> Unit) = {}): PrefixSelectionChoiceBox<T> {
     val prefixSelectionChoiceBox = PrefixSelectionChoiceBox<T>().apply {
         if (items != null) itemsProperty().bindBidirectional(items)
     }
@@ -404,12 +404,12 @@ fun <T> EventTarget.prefixselectionchoicebox(items: ListProperty<T>? = null, op:
 //endregion
 
 //region ListSelectionView
-fun <T> EventTarget.listSelectionView(op: (ListSelectionView<T>.() -> Unit)? = null): ListSelectionView<T> =
+fun <T> EventTarget.listSelectionView(op: (ListSelectionView<T>.() -> Unit) = {}): ListSelectionView<T> =
         opcr(this, ListSelectionView(), op)
 
 fun <T> EventTarget.listSelectionView(sourceItems: ListProperty<T>? = null,
                                       targetItems: ListProperty<T>? = null,
-                                      op: (ListSelectionView<T>.() -> Unit)? = null): ListSelectionView<T> {
+                                      op: (ListSelectionView<T>.() -> Unit) = {}): ListSelectionView<T> {
     val listSelectionView = ListSelectionView<T>().apply {
         if (sourceItems != null) this.sourceItemsProperty().bindBidirectional(sourceItems)
         if (targetItems != null) this.targetItemsProperty().bindBidirectional(sourceItems)
@@ -417,3 +417,4 @@ fun <T> EventTarget.listSelectionView(sourceItems: ListProperty<T>? = null,
     return opcr(this, listSelectionView, op)
 }
 //endregion
+

@@ -16,7 +16,7 @@ import tornadofx.*
 import kotlin.reflect.KFunction1
 
 //region Master Detail Pane
-fun EventTarget.masterdetailpane(detailSide: Side, showDetail: Boolean, dividerPosition: Double = 0.5, op: (MasterDetailPane.() -> Unit)? = null): MasterDetailPane =
+fun EventTarget.masterdetailpane(detailSide: Side, showDetail: Boolean, dividerPosition: Double = 0.5, op: (MasterDetailPane.() -> Unit) = {}): MasterDetailPane =
         opcr(this, MasterDetailPane(detailSide, showDetail).apply {
             this.dividerPosition = dividerPosition
         }, op)
@@ -24,7 +24,7 @@ fun EventTarget.masterdetailpane(detailSide: Side, showDetail: Boolean, dividerP
 fun EventTarget.masterdetailpane(detailSide: Property<Side>? = null,
                                  showDetail: BooleanProperty? = null,
                                  dividerPosition: Property<Number>? = null,
-                                 op: (MasterDetailPane.() -> Unit)? = null): MasterDetailPane =
+                                 op: (MasterDetailPane.() -> Unit) = {}): MasterDetailPane =
         opcr(this, MasterDetailPane().apply {
             if (detailSide != null) detailSideProperty().bindBidirectional(detailSide)
             if (showDetail != null) showDetailNodeProperty().bindBidirectional(showDetail)
@@ -44,7 +44,7 @@ internal fun MasterDetailPane.region(region: KFunction1<MasterDetailPane, Object
 //endregion
 
 //region NotificationsPane
-fun EventTarget.notificationPane(showFromTop: Boolean = true, isShowing: Property<Boolean>? = null, op: (NotificationPane.() -> Unit)? = null): NotificationPane {
+fun EventTarget.notificationPane(showFromTop: Boolean = true, isShowing: Property<Boolean>? = null, op: (NotificationPane.() -> Unit) = {}): NotificationPane {
     val notificationPane = NotificationPane().apply {
         isShowFromTop = showFromTop
         if (isShowing != null) isShowing.bind(this.showingProperty())
@@ -62,7 +62,7 @@ internal fun NotificationPane.region(region: KFunction1<NotificationPane, Object
 //endregion
 
 //region HiddenSidesPane
-fun EventTarget.hiddensidepane(op: (HiddenSidesPane.() -> Unit)? = null) = opcr(this, HiddenSidesPane(), op)
+fun EventTarget.hiddensidepane(op: (HiddenSidesPane.() -> Unit) = {}) = opcr(this, HiddenSidesPane(), op)
 
 var HiddenSidesPane.pinSide: Side
     get() = pinnedSide
@@ -86,15 +86,14 @@ internal fun HiddenSidesPane.region(region: KFunction1<HiddenSidesPane, ObjectPr
 //endregion
 
 //region SnapshotView
-fun EventTarget.snapshotview(op: (SnapshotView.() -> Unit)? = null): SnapshotView {
-    require(FX.addChildInterceptor == DEFAULT_CONTROLFX_CHILD_INTERCEPTOR,
-            {"You need to apply controlfx DEFAULT_CONTROLFX_CHILD_INTERCEPTOR to FX.addChildInterceptor for snapshotview to work"})
+fun EventTarget.snapshotview(op: (SnapshotView.() -> Unit) = {}): SnapshotView {
+
     val snapshotView = SnapshotView()
 
     return opcr(this, snapshotView, op)
 }
 
-fun EventTarget.snapshotview(selectionProperty: Property<Rectangle2D>, op: (SnapshotView.() -> Unit)? = null): SnapshotView {
+fun EventTarget.snapshotview(selectionProperty: Property<Rectangle2D>, op: (SnapshotView.() -> Unit) = {}): SnapshotView {
     val snapshotView = SnapshotView().apply {
         selectionProperty().bindBidirectional(selectionProperty)
     }
