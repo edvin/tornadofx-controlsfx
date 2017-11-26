@@ -1,10 +1,20 @@
 package tornadofx.controlsfx
 
+import javafx.beans.property.Property
 import javafx.beans.property.ReadOnlyListProperty
+import javafx.beans.property.SimpleObjectProperty
+import javafx.beans.property.StringProperty
 import javafx.beans.value.ObservableValue
 import javafx.collections.ObservableList
 import javafx.event.EventTarget
+import javafx.geometry.Orientation
+import javafx.scene.Node
+import javafx.scene.control.CheckBoxTreeItem
+import javafx.scene.control.TreeItem
+import javafx.util.Callback
 import org.controlsfx.control.CheckListView
+import org.controlsfx.control.CheckTreeView
+import org.controlsfx.control.SegmentedBar
 import tornadofx.*
 
 //region CheckListView
@@ -27,3 +37,58 @@ fun <T> EventTarget.checklistview(items: ObservableValue<ObservableList<T>>, op:
         rebinder()
     }
     return opcr(this, checkListView, op)
+}
+//endregion
+
+//region SegmentedBar
+fun <T : SegmentedBar.Segment> EventTarget.segmentedbar(segments: List<T>,
+                                                        orientation: Orientation = Orientation.HORIZONTAL,
+                                                        op: (SegmentedBar<T>.() -> Unit) = {}): SegmentedBar<T> {
+    val segmentedBar = SegmentedBar<T>().apply {
+        this.orientation = orientation
+        this.segments.setAll(segments)
+    }
+    return opcr(this, segmentedBar, op)
+}
+
+fun <T : SegmentedBar.Segment> EventTarget.segmentedbar(segments: Property<ObservableList<T>>? = null,
+                                                        orientation: Property<Orientation> = SimpleObjectProperty<Orientation>(Orientation.HORIZONTAL),
+                                                        op: (SegmentedBar<T>.() -> Unit) = {}): SegmentedBar<T> {
+    val segmentedBar = SegmentedBar<T>().apply {
+        if (segments != null) segmentsProperty().bindBidirectional(segments)
+        orientationProperty().bindBidirectional(orientation)
+    }
+    return opcr(this, segmentedBar, op)
+}
+
+fun <T : SegmentedBar.Segment> SegmentedBar<T>.populate(factory: () -> List<T>) {
+    segments.setAll(factory())
+}
+
+fun <T : SegmentedBar.Segment> SegmentedBar<T>.segmentViewFactory(factory: (T) -> Node) {
+    this.segmentViewFactory = Callback { factory(it) }
+}
+
+fun <T : SegmentedBar.Segment> SegmentedBar<T>.infoNodeFactory(factory: (T) -> Node) {
+    this.infoNodeFactory = Callback { factory(it) }
+}
+
+fun SegmentedBar<in SegmentedBar.Segment>.segment(value: Double, text: String? = null, op: (SegmentedBar.Segment.() -> Unit) = {}):
+        SegmentedBar.Segment {
+    val segment = SegmentedBar.Segment(value, text)
+    op.invoke(segment)
+    this.getSegments().add(segment)
+    return segment
+}
+
+fun SegmentedBar<in SegmentedBar.Segment>.segment(value: Double, text: StringProperty? = null, op: (SegmentedBar.Segment.() -> Unit) = {}):
+        SegmentedBar.Segment {
+    val segment = SegmentedBar.Segment(value)
+            .apply {
+                if (text != null) textProperty().bindBidirectional(text)
+            }
+    op.invoke(segment)
+    this.getSegments().add(segment)
+    return segment
+}
+//endregion
