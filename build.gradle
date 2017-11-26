@@ -27,6 +27,7 @@ compileTestKotlin {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     jcenter()
 }
@@ -48,7 +49,7 @@ signing {
 
 group = "no.tornado"
 archivesBaseName = "tornadofx-controlsfx"
-version = "0.1"
+version = "0.1.1-SNAPSHOT"
 
 uploadArchives {
     repositories {
