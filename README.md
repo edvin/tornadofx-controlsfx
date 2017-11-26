@@ -89,7 +89,7 @@ https://controlsfx.bitbucket.io/
 * [X] BreadCrumbBar
 * [X] Borders
 * [X] CheckListView
-* [ ] CheckComboBox
+* [X] CheckComboBox
 * [ ] CheckTreeView
 * [X] Glyphs
 * [X] CustomPasswordField
