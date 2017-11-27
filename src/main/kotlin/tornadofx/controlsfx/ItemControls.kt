@@ -40,6 +40,20 @@ fun <T> EventTarget.checklistview(items: ObservableValue<ObservableList<T>>, op:
 }
 //endregion
 
+//region CheckedTreeView
+fun <T> EventTarget.checktreeview(root: T? = null, op: (CheckTreeView<T>.() -> Unit) = {}): CheckTreeView<T> {
+    val checkBoxTreeView = (if (root != null)
+        CheckTreeView<T>(CheckBoxTreeItem<T>(root))
+    else
+        CheckTreeView())
+    return opcr(this, checkBoxTreeView, op)
+}
+
+fun <T> CheckTreeView<T>.populate(itemFactory: (T) -> CheckBoxTreeItem<T> = { CheckBoxTreeItem(it) },
+                                  childFactory: (TreeItem<T>) -> Iterable<T>?) =
+        populateTree(root, itemFactory, childFactory)
+//endregion
+
 //region SegmentedBar
 fun <T : SegmentedBar.Segment> EventTarget.segmentedbar(segments: List<T>,
                                                         orientation: Orientation = Orientation.HORIZONTAL,
@@ -81,10 +95,11 @@ fun SegmentedBar<in SegmentedBar.Segment>.segment(value: Double, text: String? =
     return segment
 }
 
-fun SegmentedBar<in SegmentedBar.Segment>.segment(value: Double, text: StringProperty? = null, op: (SegmentedBar.Segment.() -> Unit) = {}):
+fun SegmentedBar<in SegmentedBar.Segment>.segment(value: Property<Number>, text: StringProperty? = null, op: (SegmentedBar.Segment.() -> Unit) = {}):
         SegmentedBar.Segment {
-    val segment = SegmentedBar.Segment(value)
+    val segment = SegmentedBar.Segment(value.value.toDouble())
             .apply {
+                valueProperty().bindBidirectional(value)
                 if (text != null) textProperty().bindBidirectional(text)
             }
     op.invoke(segment)

@@ -175,7 +175,7 @@ fun Node.popover(anchorLocation: PopupWindow.AnchorLocation = PopupWindow.Anchor
     return popOver
 }
 
-var Node.popover: PopOver?
+internal var Node.popover: PopOver?
     get() = properties["popOver"] as? PopOver
     set(value) {
         properties["popOver"] = value
