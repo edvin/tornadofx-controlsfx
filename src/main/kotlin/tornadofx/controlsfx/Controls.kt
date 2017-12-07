@@ -437,7 +437,7 @@ fun <T> EventTarget.listSelectionView(sourceItems: ListProperty<T>? = null,
                                       op: (ListSelectionView<T>.() -> Unit) = {}): ListSelectionView<T> {
     val listSelectionView = ListSelectionView<T>().apply {
         if (sourceItems != null) this.sourceItemsProperty().bindBidirectional(sourceItems)
-        if (targetItems != null) this.targetItemsProperty().bindBidirectional(sourceItems)
+        if (targetItems != null) this.targetItemsProperty().bindBidirectional(targetItems)
     }
     return opcr(this, listSelectionView, op)
 }
