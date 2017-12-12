@@ -25,8 +25,8 @@ class MainApp : App(MainView::class)
 class MainView : View("View") {
     val persons = listOf(LocalPerson("aaa", "aaa"), LocalPerson("bbb", "bbbb"))
     val personViewModel by inject<PersonModel>()
-    override val root = masterdetailpane(detailSide = Side.RIGHT, showDetail = true) {
-        dividerPosition = 0.5
+    override val root = masterdetailpane(dividerPosition = 0.5) {
+
         master {
             tableview(persons.observable()) {
                 column("Name", LocalPerson::name)
@@ -35,12 +35,12 @@ class MainView : View("View") {
             }
         }
         detail {
-            form{
+            form {
                 fieldset {
                     field("Name") {
                         textfield(personViewModel.name)
                     }
-                    field("Family Name"){
+                    field("Family Name") {
                         textfield(personViewModel.familyName)
                     }
                 }
