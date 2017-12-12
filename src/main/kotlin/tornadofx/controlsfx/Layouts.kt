@@ -16,7 +16,7 @@ import tornadofx.*
 import kotlin.reflect.KFunction1
 
 //region Master Detail Pane
-fun EventTarget.masterdetailpane(detailSide: Side, showDetail: Boolean, dividerPosition: Double = 0.5, op: (MasterDetailPane.() -> Unit) = {}): MasterDetailPane =
+fun EventTarget.masterdetailpane(detailSide: Side = Side.RIGHT, showDetail: Boolean = true, dividerPosition: Double = 0.5, op: (MasterDetailPane.() -> Unit) = {}): MasterDetailPane =
         opcr(this, MasterDetailPane(detailSide, showDetail).apply {
             this.dividerPosition = dividerPosition
         }, op)
