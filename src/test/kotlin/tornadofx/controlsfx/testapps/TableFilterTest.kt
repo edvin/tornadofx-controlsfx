@@ -12,16 +12,16 @@ class TableFilterApp: App(TableFilterView::class)
 class TableFilterView : View() {
     override val root = tableview(patients) {
 
-        column("FIRST NAME", Patient::firstName)
-        column("LAST NAME", Patient::lastName)
-        column("GENDER", Patient::gender) {
+        readonlyColumn("FIRST NAME", Patient::firstName)
+        readonlyColumn("LAST NAME", Patient::lastName)
+        readonlyColumn("GENDER", Patient::gender) {
             columnfilter {
                 exceptValue(Gender.FEMALE)
             }
         }
-        column("BIRTHDAY", Patient::birthday)
-        column("AGE", Patient::age)
-        column("WBCC", Patient::whiteBloodCellCount)
+        readonlyColumn("BIRTHDAY", Patient::birthday)
+        readonlyColumn("AGE", Patient::age)
+        readonlyColumn("WBCC", Patient::whiteBloodCellCount)
 
         tableFilter.executeFilter()
     }

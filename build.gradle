@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.0'
+    ext.kotlin_version = '1.2.41'
 
     repositories {
         maven {
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    compile('no.tornado:tornadofx:1.7.13') {
+    compile('no.tornado:tornadofx:1.7.16') {
         exclude group: 'org.glassfish'
     }
     compile 'org.controlsfx:controlsfx:8.40.14'
@@ -48,7 +48,7 @@ signing {
 
 group = "no.tornado"
 archivesBaseName = "tornadofx-controlsfx"
-version = "0.1.1-SNAPSHOT"
+version = "0.1.2-SNAPSHOT"
 
 uploadArchives {
     repositories {
