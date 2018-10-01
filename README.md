@@ -90,7 +90,7 @@ https://controlsfx.bitbucket.io/
 * [X] Borders
 * [X] CheckListView
 * [X] CheckComboBox
-* [ ] CheckTreeView
+* [X] CheckTreeView
 * [X] Glyphs
 * [X] CustomPasswordField
 * [X] CustomTextField

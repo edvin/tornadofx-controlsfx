@@ -52,6 +52,21 @@ fun <T> EventTarget.checktreeview(root: T? = null, op: (CheckTreeView<T>.() -> U
 fun <T> CheckTreeView<T>.populate(itemFactory: (T) -> CheckBoxTreeItem<T> = { CheckBoxTreeItem(it) },
                                   childFactory: (TreeItem<T>) -> Iterable<T>?) =
         populateTree(root, itemFactory, childFactory)
+
+fun <T> checkboxtreeitem(item: T, op: (CheckBoxTreeItem<T>.() -> Unit)): CheckBoxTreeItem<T> {
+    return CheckBoxTreeItem(item).apply {
+        isExpanded = true
+        op.invoke(this)
+    }
+}
+
+fun <T> CheckBoxTreeItem<T>.checkboxtreeitem(item: T, op: (CheckBoxTreeItem<T>.() -> Unit) = {}): CheckBoxTreeItem<T> {
+    return CheckBoxTreeItem(item).apply {
+        isExpanded = true
+        this@checkboxtreeitem.children.add(this)
+        op.invoke(this)
+    }
+}
 //endregion
 
 //region SegmentedBar
