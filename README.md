@@ -103,7 +103,7 @@ https://controlsfx.bitbucket.io/
 * [X] StatusBar
 * [X] ToggleSwitch
 * [X] WorldMapView
-* [ ] SegmentedBar
+* [X] SegmentedBar
 * [X] Rating
 * [X] PropertySheet
 * [X] PopOver
@@ -115,7 +115,7 @@ https://controlsfx.bitbucket.io/
 * [X] HyperlinkLabel
 * [ ] GridView
 * [X] FontAwesome
-* [ ] Decorator
+* [X] Decorator
 * [X] InfoOverlay
 * [X] ListSelectionView
 * [X] Prefix Selection Combobox/Choicebox

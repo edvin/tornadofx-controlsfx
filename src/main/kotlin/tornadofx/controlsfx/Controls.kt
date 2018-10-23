@@ -11,6 +11,7 @@ import javafx.scene.control.*
 import javafx.stage.PopupWindow
 import javafx.util.Callback
 import org.controlsfx.control.*
+import org.controlsfx.control.decoration.Decoration
 import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
 import org.controlsfx.glyphfont.Glyph
@@ -454,5 +455,20 @@ fun <T> EventTarget.checkcombobox(items: ObservableList<T>, checkedItems: Observ
 }
 //endregion
 
+//region Decorator
+fun Node.decorate(decoration: Decoration) {
+    org.controlsfx.control.decoration.Decorator.addDecoration(this, decoration)
+}
 
+fun Node.undecorate(decoration: Decoration) {
+    org.controlsfx.control.decoration.Decorator.removeDecoration(this, decoration)
+}
+
+fun Node.undecorateAll() {
+    org.controlsfx.control.decoration.Decorator.removeAllDecorations(this)
+}
+
+val Node.decorations: ObservableList<Decoration>
+    get() = org.controlsfx.control.decoration.Decorator.getDecorations(this)
+//endregion
 
