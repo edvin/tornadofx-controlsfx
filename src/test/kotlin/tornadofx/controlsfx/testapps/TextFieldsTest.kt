@@ -22,8 +22,9 @@ class TextFieldsView : View("Text Fields") {
                     }
                     field("Learning") {
                         textfield {
-                            bindAutoCompletion() {
-                                learningWords
+                            bindAutoCompletion(suggestionsList = learningWords) {
+                                setDelay(0)
+                                onAutoCompleted { println(it.completion) }
                             }
                             setOnKeyPressed {
                                 learningWords.add(this@textfield.text.trim())

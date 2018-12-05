@@ -6,30 +6,38 @@ import javafx.event.EventTarget
 import javafx.scene.Node
 import javafx.scene.control.TextField
 import javafx.util.StringConverter
+import org.controlsfx.control.textfield.AutoCompletionBinding
 import org.controlsfx.control.textfield.CustomPasswordField
 import org.controlsfx.control.textfield.CustomTextField
 import org.controlsfx.control.textfield.TextFields
 import tornadofx.*
 
-fun <T> TextField.bindAutoCompletion(vararg suggestions: T) {
-    TextFields.bindAutoCompletion(this, *suggestions)
+fun <T> TextField.bindAutoCompletion(vararg suggestions: T, op: (AutoCompletionBinding<T>.() -> Unit)? = null) {
+    val binding = TextFields.bindAutoCompletion(this, *suggestions)
+    if (op != null) binding.apply(op)
 }
 
-fun <T> TextField.bindAutoCompletion(suggestions: List<T>) {
-    TextFields.bindAutoCompletion(this, suggestions)
+fun <T> TextField.bindAutoCompletion(suggestionsList: List<T>, op: (AutoCompletionBinding<T>.() -> Unit)? = null) {
+    val binding = TextFields.bindAutoCompletion(this, suggestionsList)
+    if (op != null) binding.apply(op)
 }
 
-fun <T> TextField.bindAutoCompletion(suggestionsProvider: () -> Collection<T>) {
-    TextFields.bindAutoCompletion(this, { suggestionsProvider() })
+fun <T> TextField.bindAutoCompletion(suggestionsProvider: () -> Collection<T>, op: (AutoCompletionBinding<T>.() -> Unit)? = null) {
+    val binding = TextFields.bindAutoCompletion(this) { suggestionsProvider() }
+    if (op != null) binding.apply(op)
 }
 
-fun <T> TextField.bindAutoCompletion(suggestionsProvider: () -> Collection<T>, converter: StringConverter<T>) {
-    TextFields.bindAutoCompletion(this, { suggestionsProvider() }, converter)
+fun <T> TextField.bindAutoCompletion(suggestionsProvider: () -> Collection<T>, converter: StringConverter<T>, op: (AutoCompletionBinding<T>.() -> Unit)? = null) {
+    val binding = TextFields.bindAutoCompletion(this, { suggestionsProvider() }, converter)
+    if (op != null) binding.apply(op)
 }
 
-fun <T> TextField.bindAutoCompletion(suggestionProvider: SuggestionProvider<T>) {
-    TextFields.bindAutoCompletion(this, suggestionProvider)
+fun <T> TextField.bindAutoCompletion(suggestionProvider: SuggestionProvider<T>, op: (AutoCompletionBinding<T>.() -> Unit)? = null) {
+    val binding = TextFields.bindAutoCompletion(this, suggestionProvider)
+    if (op != null) binding.apply(op)
 }
+
+fun <T> AutoCompletionBinding<T>.onAutoCompleted(op: (AutoCompletionBinding.AutoCompletionEvent<T>) -> Unit) = setOnAutoCompleted { op(it) }
 
 fun EventTarget.clearableTextfield(op: (TextField.() -> Unit) = {}): TextField =
         opcr(this, TextFields.createClearableTextField(), op)
