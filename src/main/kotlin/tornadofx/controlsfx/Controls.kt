@@ -3,6 +3,7 @@ package tornadofx.controlsfx
 import impl.org.controlsfx.table.ColumnFilter
 import javafx.beans.property.*
 import javafx.beans.value.ObservableValue
+import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.event.EventTarget
 import javafx.geometry.Orientation
@@ -12,14 +13,15 @@ import javafx.stage.PopupWindow
 import javafx.util.Callback
 import org.controlsfx.control.*
 import org.controlsfx.control.decoration.Decoration
+import org.controlsfx.control.spreadsheet.*
 import org.controlsfx.control.table.TableFilter
 import org.controlsfx.glyphfont.FontAwesome
 import org.controlsfx.glyphfont.Glyph
 import org.controlsfx.glyphfont.GlyphFontRegistry
 import tornadofx.*
+import java.time.LocalDate
 import java.util.*
 import java.util.function.BiFunction
-
 
 //TableFilter
 private fun <T> TableView<T>.applyTableFilter(lazy: Boolean = true): TableFilter<T> {
@@ -472,3 +474,71 @@ val Node.decorations: ObservableList<Decoration>
     get() = org.controlsfx.control.decoration.Decorator.getDecorations(this)
 //endregion
 
+
+
+// SpreadsheetView
+
+fun EventTarget.spreadsheetView(op : SpreadsheetView.() -> Unit = {}): SpreadsheetView {
+    val ssv = SpreadsheetView()
+    ssv.op()
+    opcr(this, ssv)
+    return ssv
+}
+
+fun SpreadsheetView.gridbase(rowCount: Int, colCount: Int, op: GridBaseBuilder.() -> Unit = {}): Grid {
+
+    val gb = GridBase(rowCount, colCount)
+    val gbb = GridBaseBuilder(gb)
+    gbb.op()
+    grid = gb
+    return grid
+}
+
+
+class GridBaseBuilder(val gridBase: GridBase) {
+
+    inner class TableBuilder<T>(val anchorRow: Int = 0, val anchorCol: Int = 0, items: Iterable<T>) {
+
+        val items = items.toList()
+
+        val rows = FXCollections.observableArrayList<ObservableList<SpreadsheetCell>>().apply {
+            repeat(items.count()) {
+                add(FXCollections.observableArrayList())
+            }
+        }
+
+
+        var columnNumber = 0
+
+        inline fun <R> column(title: String, extractor: (T) -> R) {
+
+            (0 until items.count()).forEach { rowNumber ->
+
+                val value = extractor(items[rowNumber]!!)
+
+                val currentRow = rows[rowNumber]
+
+                val cellFactory = when {
+                    value is Int -> { SpreadsheetCellType.INTEGER.createCell(rowNumber + anchorRow, columnNumber + anchorCol, 1, 1, value) }
+                    value is String -> { SpreadsheetCellType.STRING.createCell(rowNumber + anchorRow, columnNumber + anchorCol, 1, 1, value) }
+                    value is LocalDate -> { SpreadsheetCellType.DATE.createCell(rowNumber + anchorRow, columnNumber + anchorCol, 1, 1, value) }
+                    value is Double -> { SpreadsheetCellType.DOUBLE.createCell(rowNumber + anchorRow, columnNumber + anchorCol, 1, 1, value) }
+                    else -> { SpreadsheetCellType.STRING.createCell(rowNumber + anchorRow, columnNumber + anchorCol, 1, 1, value?.toString()) }
+                }
+                currentRow.add(cellFactory)
+            }
+        }
+
+        fun build() {
+            gridBase.rows.addAll(rows)
+        }
+    }
+
+    fun <T> GridBaseBuilder.table(items: Iterable<T>,
+                        anchorRow: Int = 0,
+                        anchorCol: Int = 0,
+                        op: TableBuilder<T>.() -> Unit = {}) = TableBuilder(anchorRow,anchorCol,items).apply {
+                                                                                                        op()
+                                                                                                        build()
+                                                                                                    }
+}
