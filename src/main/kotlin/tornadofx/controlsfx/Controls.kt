@@ -192,7 +192,7 @@ fun Node.showPopover() {
 fun EventTarget.rating(rating: Int, max: Int, allowPartialRating: Boolean = false, updateRatingOnHover: Boolean = false, op: (Rating.() -> Unit) = {}): Rating {
     val r = Rating(max, rating).apply {
         isPartialRating = allowPartialRating
-        isPartialRating = updateRatingOnHover
+        isUpdateOnHover = updateRatingOnHover
     }
     return opcr(this, r, op)
 
@@ -203,7 +203,7 @@ fun EventTarget.rating(rating: Property<Number>, max: Property<Number>, allowPar
         ratingProperty().bindBidirectional(rating)
         maxProperty().bindBidirectional(max)
         isPartialRating = allowPartialRating
-        isPartialRating = updateRatingOnHover
+        isUpdateOnHover = updateRatingOnHover
     }
     return opcr(this, r, op)
 }
@@ -212,7 +212,7 @@ fun EventTarget.rating(rating: Property<Number>, max: Int, allowPartialRating: B
     val r = Rating(max).apply {
         ratingProperty().bindBidirectional(rating)
         isPartialRating = allowPartialRating
-        isPartialRating = updateRatingOnHover
+        isUpdateOnHover = updateRatingOnHover
     }
     return opcr(this, r, op)
 }
